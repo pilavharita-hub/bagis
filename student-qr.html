@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>QR Kodunuzu Alın — Askıda Pilav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff; --off-white:#faf9f7; --bg:#f5f3ef; --bg-2:#f0ede7;
+  --border:#e8e4dc; --border-light:#f0ece4;
+  --text:#1a1814; --text-2:#6b6560; --text-3:#b0aa9f; --text-4:#d4cfc8;
+  --red:#c0392b; --red-d:#a93226; --red-light:#fdf3f2; --red-border:#f5cac7;
+  --gold:#9a7c4f; --gold-d:#8a6e41; --gold-light:#f9f5ee; --gold-border:rgba(154,124,79,0.25);
+  --green:#2d7a5f; --green-light:#edf7f3;
+  --r-xs:4px; --r-sm:6px; --r:10px; --r-lg:16px; --r-xl:24px; --r-2xl:32px;
+  --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+  --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+  --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+  --sh-red:0 12px 40px rgba(192,57,43,0.25);
+  --font-d:'DM Serif Display',Georgia,serif;
+  --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-b);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.6;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--red-light);color:var(--red)}
+
+/* ─── Announce bar ─── */
+.announce{
+  background:var(--text);
+  color:rgba(255,255,255,0.58);
+  text-align:center;
+  padding:9px 20px;
+  font-size:11.5px;
+  letter-spacing:0.01em;
+  flex-shrink:0;
+}
+.announce-inner{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.announce-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--red);
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:100px;
+}
+.announce-pill-dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.65);
+  animation:dot-pulse 2s ease infinite;
+}
+@keyframes dot-pulse{0%,100%{opacity:1}50%{opacity:0.28}}
+.announce-sep{color:rgba(255,255,255,0.18)}
+.announce strong{color:rgba(255,255,255,0.88);font-weight:500}
+
+/* ─── Nav ─── */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:900;
+  background:rgba(250,249,247,0.96);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow 0.25s var(--ease);
+  flex-shrink:0;
+}
+.nav.scrolled{box-shadow:var(--sh)}
+.nav-inner{
+  max-width:760px;
+  margin:0 auto;
+  padding:0 32px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+}
+.nav-logo-icon{
+  width:32px;height:32px;
+  background:var(--text);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.nav-logo-icon svg{width:15px;height:15px;color:#fff}
+.nav-logo-name{font-family:var(--font-d);font-size:18px;color:var(--text);line-height:1}
+.nav-back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text-2);
+  padding:8px 14px;
+  border-radius:var(--r-sm);
+  border:1px solid var(--border);
+  transition:all 0.16s var(--ease);
+}
+.nav-back:hover{color:var(--text);background:var(--bg);border-color:var(--border)}
+.nav-back svg{flex-shrink:0}
+
+/* ─── Page layout ─── */
+.page-wrap{
+  max-width:760px;
+  margin:0 auto;
+  width:100%;
+  padding:48px 32px 80px;
+  flex:1;
+}
+
+/* ─── Page header ─── */
+.page-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--red);
+  background:var(--red-light);
+  border:1px solid var(--red-border);
+  border-radius:100px;
+  padding:4px 12px;
+  margin-bottom:18px;
+}
+.page-title{
+  font-family:var(--font-d);
+  font-size:40px;
+  line-height:1.12;
+  color:var(--text);
+  margin-bottom:40px;
+  letter-spacing:-0.01em;
+}
+.page-title em{font-style:italic;color:var(--red)}
+
+/* ─── Main card ─── */
+.view-card{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh-xl);
+  overflow:hidden;
+  border:1px solid var(--border-light);
+}
+
+/* ─── Card top (gradient header) ─── */
+.card-top{
+  background:linear-gradient(160deg, var(--bg) 0%, var(--white) 100%);
+  border-bottom:1px solid var(--border-light);
+  padding:36px 40px 32px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
+}
+.card-top-icon-wrap{
+  width:56px;height:56px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh);
+  flex-shrink:0;
+}
+.card-top-icon-wrap svg{width:26px;height:26px;color:var(--text)}
+.card-top-title{
+  font-family:var(--font-d);
+  font-size:22px;
+  color:var(--text);
+  line-height:1.2;
+  margin-bottom:2px;
+}
+.card-top-desc{
+  font-size:14px;
+  color:var(--text-2);
+  line-height:1.65;
+  max-width:480px;
+}
+
+/* ─── Form body ─── */
+.card-body{padding:36px 40px}
+
+/* ─── Fields ─── */
+.field-group{margin-bottom:22px}
+.field-label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:7px;
+  letter-spacing:0.01em;
+}
+.field-input{
+  width:100%;
+  padding:13px 16px;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  font-family:var(--font-b);
+  font-size:15px;
+  color:var(--text);
+  outline:none;
+  transition:border-color 0.15s,box-shadow 0.15s,background 0.15s;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.field-input::placeholder{color:var(--text-4)}
+.field-input:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 3.5px rgba(192,57,43,0.09);
+  background:var(--white);
+}
+
+/* ─── Primary button ─── */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:15px 28px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:var(--r);
+  font-family:var(--font-b);
+  font-size:15px;
+  font-weight:500;
+  cursor:pointer;
+  transition:background 0.18s var(--ease),box-shadow 0.18s var(--ease),transform 0.18s var(--ease);
+  white-space:nowrap;
+  width:100%;
+  letter-spacing:0.01em;
+  position:relative;
+  overflow:hidden;
+}
+.btn-primary::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.btn-primary:hover:not(:disabled){
+  background:var(--red-d);
+  box-shadow:var(--sh-red);
+  transform:translateY(-1px);
+}
+.btn-primary:active:not(:disabled){transform:translateY(0);box-shadow:none}
+.btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ─── Ghost button ─── */
+.btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:13px 24px;
+  background:transparent;
+  color:var(--text-2);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  font-family:var(--font-b);
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.16s var(--ease);
+  width:100%;
+  letter-spacing:0.01em;
+}
+.btn-ghost:hover:not(:disabled){
+  border-color:var(--text-3);
+  background:var(--off-white);
+  color:var(--text);
+}
+.btn-ghost:active:not(:disabled){background:var(--bg)}
+.btn-ghost:disabled{opacity:0.5;cursor:not-allowed}
+
+/* ─── Spinner ─── */
+.btn-spinner{
+  display:inline-block;
+  width:14px;height:14px;
+  border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin 0.65s linear infinite;
+  flex-shrink:0;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── Error message ─── */
+.error-msg{
+  display:none;
+  padding:12px 15px;
+  background:var(--red-light);
+  border:1px solid var(--red-border);
+  border-radius:var(--r);
+  font-size:13px;
+  color:var(--red);
+  line-height:1.55;
+  margin-top:16px;
+}
+
+/* ─── Info note ─── */
+.info-note{
+  margin-top:24px;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:16px 18px;
+  background:var(--off-white);
+  border:1px solid var(--border-light);
+  border-left:3px solid var(--red);
+  border-radius:0 var(--r) var(--r) 0;
+}
+.info-note-icon{
+  flex-shrink:0;
+  width:18px;height:18px;
+  margin-top:1px;
+  color:var(--red);
+  opacity:0.7;
+}
+.info-note p{
+  font-size:12.5px;
+  color:var(--text-2);
+  line-height:1.6;
+}
+
+/* ─── QR View — hidden initially ─── */
+#qrView{display:none}
+#qrView.visible{
+  display:block;
+  animation:qr-enter 0.35s var(--ease) both;
+}
+@keyframes qr-enter{
+  from{opacity:0;transform:scale(0.96) translateY(6px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+/* ─── Student info header ─── */
+.student-header{
+  background:linear-gradient(160deg, var(--bg) 0%, var(--white) 100%);
+  border-bottom:1px solid var(--border-light);
+  padding:28px 40px 26px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+}
+.student-info{flex:1;min-width:0}
+.student-name-el{
+  font-family:var(--font-d);
+  font-size:24px;
+  color:var(--text);
+  line-height:1.15;
+  margin-bottom:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.student-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.student-uni-el{
+  font-size:13px;
+  color:var(--text-2);
+}
+.student-meta-sep{color:var(--text-4);font-size:12px}
+.student-num-el{
+  font-size:12px;
+  color:var(--text-3);
+  font-family:'Courier New',monospace;
+  letter-spacing:0.04em;
+}
+
+/* ─── Status pill ─── */
+.status-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:5px 13px 5px 10px;
+  background:var(--green-light);
+  color:var(--green);
+  border-radius:100px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  flex-shrink:0;
+  margin-top:3px;
+  transition:background 0.3s,color 0.3s;
+}
+.status-pill.expired{
+  background:var(--red-light);
+  color:var(--red);
+}
+.status-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:currentColor;
+  position:relative;
+  flex-shrink:0;
+}
+.status-dot::after{
+  content:'';
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  background:currentColor;
+  opacity:0.25;
+  animation:dot-ring 2s ease-in-out infinite;
+}
+.status-pill.expired .status-dot::after{
+  animation:dot-ring-red 0.8s ease-in-out infinite;
+}
+@keyframes dot-ring{
+  0%,100%{transform:scale(1);opacity:0.25}
+  50%{transform:scale(1.6);opacity:0}
+}
+@keyframes dot-ring-red{
+  0%,100%{transform:scale(1);opacity:0.35}
+  50%{transform:scale(2);opacity:0}
+}
+
+/* ─── QR section ─── */
+.qr-section{
+  padding:36px 40px 28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ─── QR canvas + viewfinder corners ─── */
+.qr-canvas-wrap{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+}
+.qr-canvas-inner{
+  background:var(--white);
+  border-radius:var(--r-lg);
+  padding:18px;
+  box-shadow:var(--sh-lg);
+  border:1px solid var(--border-light);
+  position:relative;
+  z-index:1;
+}
+#qrCanvas{
+  display:block;
+  border-radius:var(--r-sm);
+}
+
+/* Viewfinder corners */
+.qr-corner{
+  position:absolute;
+  width:22px;height:22px;
+  z-index:2;
+}
+.qr-corner::before,.qr-corner::after{
+  content:'';
+  position:absolute;
+  background:var(--red);
+  border-radius:1px;
+}
+.qr-corner-tl{top:-6px;left:-6px}
+.qr-corner-tl::before{top:0;left:0;width:3px;height:100%}
+.qr-corner-tl::after{top:0;left:0;width:100%;height:3px}
+
+.qr-corner-tr{top:-6px;right:-6px}
+.qr-corner-tr::before{top:0;right:0;width:3px;height:100%}
+.qr-corner-tr::after{top:0;right:0;width:100%;height:3px}
+
+.qr-corner-bl{bottom:-6px;left:-6px}
+.qr-corner-bl::before{bottom:0;left:0;width:3px;height:100%}
+.qr-corner-bl::after{bottom:0;left:0;width:100%;height:3px}
+
+.qr-corner-br{bottom:-6px;right:-6px}
+.qr-corner-br::before{bottom:0;right:0;width:3px;height:100%}
+.qr-corner-br::after{bottom:0;right:0;width:100%;height:3px}
+
+/* ─── Token text ─── */
+.token-wrap{
+  display:inline-block;
+  padding:7px 14px;
+  background:var(--off-white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  margin-bottom:6px;
+}
+.token-text{
+  font-family:'Courier New',Courier,monospace;
+  font-size:11px;
+  color:var(--text-3);
+  letter-spacing:0.1em;
+  word-break:break-all;
+  line-height:1.6;
+  display:block;
+}
+
+/* ─── Countdown ─── */
+.countdown-section{
+  width:100%;
+  padding:0 40px 32px;
+}
+.countdown-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+.countdown-label-text{
+  font-size:12.5px;
+  color:var(--text-3);
+  letter-spacing:0.01em;
+}
+.countdown-time-val{
+  font-family:'Courier New',monospace;
+  font-size:14px;
+  font-weight:700;
+  color:var(--text-2);
+  letter-spacing:0.06em;
+  transition:color 0.4s var(--ease);
+}
+.countdown-time-val.warn{color:#c97a1a}
+.countdown-time-val.urgent{color:var(--red)}
+
+.countdown-bar-track{
+  height:7px;
+  background:var(--border-light);
+  border-radius:100px;
+  overflow:hidden;
+  position:relative;
+}
+.countdown-bar-fill{
+  height:100%;
+  width:100%;
+  background:var(--red);
+  border-radius:100px;
+  transition:width 1s linear, background 0.4s var(--ease);
+  transform-origin:left center;
+}
+.countdown-bar-fill.warn{background:linear-gradient(90deg,#c97a1a,#e0891e)}
+.countdown-bar-fill.urgent{
+  background:var(--red);
+  animation:bar-pulse 0.7s ease-in-out infinite;
+}
+@keyframes bar-pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.6}
+}
+.countdown-note{
+  font-size:11.5px;
+  color:var(--text-4);
+  text-align:center;
+  margin-top:10px;
+  line-height:1.5;
+}
+
+/* ─── Card footer ─── */
+.card-footer{
+  padding:20px 40px 28px;
+  border-top:1px solid var(--border-light);
+}
+
+/* ─── Footer ─── */
+footer{background:var(--text);margin-top:auto}
+.ft-main{
+  max-width:760px;
+  margin:0 auto;
+  padding:48px 32px 32px;
+}
+.ft-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.ft-logo-icon{
+  width:30px;height:30px;
+  background:rgba(255,255,255,0.08);
+  border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+}
+.ft-logo-icon svg{width:14px;height:14px;color:rgba(255,255,255,0.65)}
+.ft-name{font-family:var(--font-d);font-size:17px;color:#fff}
+.ft-desc{font-size:13px;color:rgba(255,255,255,0.35);font-weight:300}
+.ft-bottom{
+  max-width:760px;
+  margin:0 auto;
+  padding:15px 32px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.ft-copy{font-size:11.5px;color:rgba(255,255,255,0.2);font-weight:300}
+.ft-links{display:flex;gap:16px}
+.ft-links a{
+  font-size:11.5px;
+  color:rgba(255,255,255,0.28);
+  font-weight:300;
+  transition:color 0.15s;
+}
+.ft-links a:hover{color:rgba(255,255,255,0.55)}
+
+/* ─── Responsive ─── */
+@media(max-width:520px){
+  .page-wrap{padding:32px 20px 60px}
+  .page-title{font-size:32px}
+  .card-top{padding:28px 24px 24px}
+  .card-body{padding:28px 24px}
+  .student-header{padding:22px 24px 20px}
+  .student-name-el{font-size:20px}
+  .qr-section{padding:28px 24px 20px}
+  .countdown-section{padding:0 24px 24px}
+  .card-footer{padding:16px 24px 24px}
+  .ft-main{padding:36px 20px 26px}
+  .ft-bottom{padding:14px 20px}
+  .nav-inner{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- Announce bar -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-pill"><span class="announce-pill-dot"></span>Ankara'da Tek</span>
+    <strong>pilavustuask.com güvencesiyle</strong>
+    <span class="announce-sep">·</span>
+    SSL
+    <span class="announce-sep">·</span>
+    KVKK
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav at-top" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      </span>
+      <span class="nav-logo-name">Askıda Pilav</span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Ana Sayfa
+    </a>
+  </div>
+</nav>
+
+<!-- Page -->
+<main class="page-wrap">
+
+  <!-- Page header -->
+  <p class="page-tag">QR Kodu</p>
+  <h1 class="page-title">QR kodunuzu <em>alın</em></h1>
+
+  <!-- ── LOOKUP VIEW ── -->
+  <div id="lookupView">
+    <div class="view-card">
+
+      <!-- Card top -->
+      <div class="card-top">
+        <div class="card-top-icon-wrap">
+          <!-- QR code icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/>
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM16 16h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-top-title">E-posta ile giriş yapın</div>
+          <p class="card-top-desc">Kayıtlı e-posta adresinizi girin. Aktif öğrenci kaydınız varsa QR kodunuz oluşturulacaktır.</p>
+        </div>
+      </div>
+
+      <!-- Form body -->
+      <div class="card-body">
+        <div class="field-group">
+          <label class="field-label" for="emailInput">E-posta adresi</label>
+          <input
+            type="email"
+            id="emailInput"
+            class="field-input"
+            placeholder="ornek@university.edu.tr"
+            autocomplete="email"
+            inputmode="email"
+          />
+        </div>
+
+        <button id="btnGenerate" class="btn-primary">QR Kod Oluştur</button>
+
+        <div id="errMsg" class="error-msg" role="alert"></div>
+
+        <!-- Info note -->
+        <div class="info-note">
+          <svg class="info-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>QR kodunuz <strong>10 dakika</strong> geçerlidir. Kasiyer tarafından okutulmadan süre dolarsa yeniden oluşturabilirsiniz.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── QR VIEW ── -->
+  <div id="qrView">
+    <div class="view-card">
+
+      <!-- Student info header -->
+      <div class="student-header">
+        <div class="student-info">
+          <div class="student-name-el" id="studentName">—</div>
+          <div class="student-meta">
+            <span class="student-uni-el" id="studentUni">—</span>
+            <span class="student-meta-sep">·</span>
+            <span class="student-num-el" id="studentNum">—</span>
+          </div>
+        </div>
+        <div class="status-pill" id="qrStatus">
+          <span class="status-dot"></span>
+          Geçerli
+        </div>
+      </div>
+
+      <!-- QR canvas section -->
+      <div class="qr-section">
+        <div class="qr-canvas-wrap">
+          <div class="qr-canvas-inner">
+            <canvas id="qrCanvas" width="220" height="220"></canvas>
+          </div>
+          <span class="qr-corner qr-corner-tl"></span>
+          <span class="qr-corner qr-corner-tr"></span>
+          <span class="qr-corner qr-corner-bl"></span>
+          <span class="qr-corner qr-corner-br"></span>
+        </div>
+        <div class="token-wrap">
+          <span class="token-text" id="tokenText">—</span>
+        </div>
+      </div>
+
+      <!-- Countdown section -->
+      <div class="countdown-section">
+        <div class="countdown-header">
+          <span class="countdown-label-text">Kalan süre</span>
+          <span class="countdown-time-val" id="countdownLabel">10:00</span>
+        </div>
+        <div class="countdown-bar-track">
+          <div class="countdown-bar-fill" id="countdownBar"></div>
+        </div>
+        <p class="countdown-note">10 dakika boyunca geçerlidir. Kasiyere gösterin.</p>
+      </div>
+
+      <!-- Card footer -->
+      <div class="card-footer">
+        <button class="btn-ghost" onclick="resetToLookup()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Yeni QR Oluştur
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="ft-main">
+    <div class="ft-logo">
+      <span class="ft-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      </span>
+      <span class="ft-name">Askıda Pilav</span>
+    </div>
+    <p class="ft-desc">Ankara'da öğrencilere sıcak yemek platformu.</p>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 pilavustuask.com.tr</span>
+    <div class="ft-links">
+      <a href="#">Gizlilik</a>
+      <a href="#">KVKK</a>
+      <a href="#">İletişim</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script>
+const SUPA_URL = 'https://svvjgqdyzjschuoxvsig.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+let countdownInterval = null;
+let currentStudentId = null;
+
+async function generateQR() {
+  const email = document.getElementById('emailInput').value.trim();
+  const errEl = document.getElementById('errMsg');
+  const btn = document.getElementById('btnGenerate');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Lütfen geçerli bir e-posta adresi girin.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  btn.innerHTML = '<span class="btn-spinner"></span>Aranıyor…';
+
+  try {
+    const { data: student, error } = await db
+      .from('students')
+      .select('id, first_name, last_name, university, student_id, status')
+      .eq('email', email)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!student) {
+      errEl.textContent = 'Bu e-posta ile kayıtlı öğrenci bulunamadı.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'QR Kod Oluştur';
+      return;
+    }
+    if (student.status !== 'approved') {
+      errEl.textContent = 'Kaydınız henüz onaylanmamış. Onay sonrası QR kodu oluşturabilirsiniz.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'QR Kod Oluştur';
+      return;
+    }
+
+    currentStudentId = student.id;
+    const idPart = student.id.toString(16).toUpperCase().slice(-8).padStart(8, '0');
+    const tsPart = Date.now().toString(36).toUpperCase();
+    const randPart = Math.random().toString(36).toUpperCase().slice(2, 6);
+    const token = 'AP-' + idPart + '-' + tsPart + '-' + randPart;
+
+    await db.from('qr_tokens').insert({
+      student_id: student.id,
+      token: token,
+      expires_at: new Date(Date.now() + 600000).toISOString(),
+      used: false
+    });
+
+    // Show student info
+    document.getElementById('studentName').textContent = student.first_name + ' ' + student.last_name;
+    document.getElementById('studentUni').textContent = student.university || '—';
+    document.getElementById('studentNum').textContent = student.student_id || '—';
+    document.getElementById('tokenText').textContent = token;
+
+    // Reset status pill to valid
+    const pill = document.getElementById('qrStatus');
+    pill.textContent = '';
+    const dot = document.createElement('span');
+    dot.className = 'status-dot';
+    pill.appendChild(dot);
+    pill.appendChild(document.createTextNode(' Geçerli'));
+    pill.className = 'status-pill';
+
+    // Generate QR
+    const canvas = document.getElementById('qrCanvas');
+    QRCode.toCanvas(canvas, token, {
+      width: 220, margin: 2,
+      color: { dark: '#1a1814', light: '#ffffff' }
+    });
+
+    // Show QR view
+    document.getElementById('lookupView').style.display = 'none';
+    const qrView = document.getElementById('qrView');
+    qrView.style.display = 'block';
+    // Trigger animation
+    qrView.classList.remove('visible');
+    void qrView.offsetWidth;
+    qrView.classList.add('visible');
+
+    // Countdown
+    let remaining = 600;
+    clearInterval(countdownInterval);
+    function tick() {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('countdownLabel').textContent = 'Süre doldu';
+        document.getElementById('countdownLabel').className = 'countdown-time-val urgent';
+        document.getElementById('countdownBar').style.width = '0%';
+        document.getElementById('countdownBar').className = 'countdown-bar-fill urgent';
+        const p = document.getElementById('qrStatus');
+        p.textContent = '';
+        const d = document.createElement('span');
+        d.className = 'status-dot';
+        p.appendChild(d);
+        p.appendChild(document.createTextNode(' Süresi Doldu'));
+        p.className = 'status-pill expired';
+        return;
+      }
+      const mins = Math.floor(remaining / 60);
+      const secs = (remaining % 60).toString().padStart(2, '0');
+      document.getElementById('countdownLabel').textContent = 'Kalan süre: ' + mins + ':' + secs;
+      const pct = remaining / 600 * 100;
+      document.getElementById('countdownBar').style.width = pct + '%';
+      // Color transitions
+      const labelEl = document.getElementById('countdownLabel');
+      const barEl = document.getElementById('countdownBar');
+      if (remaining <= 30) {
+        labelEl.className = 'countdown-time-val urgent';
+        barEl.className = 'countdown-bar-fill urgent';
+      } else if (remaining <= 120) {
+        labelEl.className = 'countdown-time-val warn';
+        barEl.className = 'countdown-bar-fill warn';
+      } else {
+        labelEl.className = 'countdown-time-val';
+        barEl.className = 'countdown-bar-fill';
+      }
+    }
+    tick();
+    countdownInterval = setInterval(tick, 1000);
+
+  } catch(e) {
+    errEl.textContent = 'Bir hata oluştu: ' + (e.message || 'Bilinmeyen hata');
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'QR Kod Oluştur';
+  }
+}
+
+function resetToLookup() {
+  clearInterval(countdownInterval);
+  document.getElementById('lookupView').style.display = 'block';
+  const qrView = document.getElementById('qrView');
+  qrView.style.display = 'none';
+  qrView.classList.remove('visible');
+  document.getElementById('emailInput').value = '';
+  document.getElementById('btnGenerate').disabled = false;
+  document.getElementById('btnGenerate').textContent = 'QR Kod Oluştur';
+}
+
+document.getElementById('btnGenerate').addEventListener('click', generateQR);
+document.getElementById('emailInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') generateQR();
+});
+
+const nav = document.getElementById('nav');
+function updateNav() {
+  nav.classList.toggle('at-top', window.scrollY < 8);
+  nav.classList.toggle('scrolled', window.scrollY >= 8);
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+updateNav();
+</script>
+</body>
+</html>

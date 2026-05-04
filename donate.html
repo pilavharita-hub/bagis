@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bağış Yap — Askıda Pilav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff; --off-white:#faf9f7; --bg:#f5f3ef; --bg-2:#f0ede7;
+  --border:#e8e4dc; --border-light:#f0ece4;
+  --text:#1a1814; --text-2:#6b6560; --text-3:#b0aa9f; --text-4:#d4cfc8;
+  --red:#c0392b; --red-d:#a93226; --red-light:#fdf3f2; --red-border:#f5cac7;
+  --gold:#9a7c4f; --gold-d:#8a6e41; --gold-light:#f9f5ee; --gold-border:rgba(154,124,79,0.25);
+  --green:#2d7a5f; --green-light:#edf7f3;
+  --r-xs:4px; --r-sm:6px; --r:10px; --r-lg:16px; --r-xl:24px; --r-2xl:32px;
+  --sh-xs:0 1px 3px rgba(26,24,20,0.05);
+  --sh-sm:0 2px 8px rgba(26,24,20,0.06),0 1px 3px rgba(26,24,20,0.04);
+  --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+  --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+  --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+  --sh-red:0 12px 40px rgba(192,57,43,0.25);
+  --font-d:'DM Serif Display',Georgia,serif;
+  --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+html{font-size:16px;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+body{
+  background:linear-gradient(180deg, var(--off-white) 0%, var(--bg) 100%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--font-b);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  line-height:1.6;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--red-light);color:var(--red)}
+
+/* ---- ANNOUNCE BAR ---- */
+.announce{
+  background:var(--text);
+  color:rgba(255,255,255,0.6);
+  text-align:center;
+  padding:10px 20px;
+  font-size:11.5px;
+  letter-spacing:0.025em;
+  flex-shrink:0;
+}
+.announce-inner{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.announce-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--red);
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:2.5px 9px;
+  border-radius:100px;
+}
+.announce-pill-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,0.6);
+  animation:fadepulse 2s ease infinite;
+}
+@keyframes fadepulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.announce-sep{color:rgba(255,255,255,0.2)}
+.announce strong{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ---- NAV ---- */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:900;
+  background:rgba(250,249,247,0.95);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+  flex-shrink:0;
+}
+.nav.scrolled{
+  box-shadow:var(--sh);
+  background:rgba(255,255,255,0.98);
+}
+.nav-inner{
+  max-width:1160px;
+  margin:0 auto;
+  padding:0 32px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{
+  width:32px;height:32px;
+  background:var(--text);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.nav-logo-icon svg{width:15px;height:15px;color:#fff}
+.nav-logo-name{font-family:var(--font-d);font-size:18px;color:var(--text);letter-spacing:-0.01em}
+.nav-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13.5px;color:var(--text-2);
+  padding:8px 14px;
+  border-radius:var(--r-sm);
+  transition:all 0.15s;
+  border:1px solid var(--border);
+}
+.nav-back:hover{color:var(--text);background:var(--bg);border-color:var(--text-3)}
+.nav-back svg{transition:transform 0.2s}
+.nav-back:hover svg{transform:translateX(-2px)}
+
+/* ---- PAGE WRAP ---- */
+.page-wrap{max-width:1160px;margin:0 auto;padding:48px 32px 80px;flex:1}
+
+/* ---- PAGE HEADER ---- */
+.page-header{margin-bottom:40px}
+.page-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:10.5px;font-weight:700;color:var(--text-3);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.page-eyebrow::before{
+  content:'';
+  width:18px;height:2px;
+  background:var(--red);
+  border-radius:2px;
+  opacity:0.7;
+}
+.page-title{
+  font-family:var(--font-d);
+  font-size:clamp(34px,5vw,52px);
+  font-weight:400;
+  line-height:1.1;
+  letter-spacing:-0.02em;
+  color:var(--text);
+}
+.page-title em{font-style:italic;color:var(--red)}
+
+/* ---- STEP BAR ---- */
+.steps-bar{
+  display:flex;
+  align-items:center;
+  margin-bottom:44px;
+  max-width:460px;
+  position:relative;
+}
+.step-pill{display:flex;align-items:center;gap:9px;position:relative;z-index:1}
+.step-dot{
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid var(--border);
+  background:var(--white);
+  color:var(--text-3);
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.35s var(--ease);
+  flex-shrink:0;
+  font-family:var(--font-b);
+  position:relative;
+  z-index:2;
+}
+.step-dot.active{
+  border-color:var(--red);
+  background:var(--red);
+  color:#fff;
+  font-weight:700;
+  box-shadow:0 0 0 4px rgba(192,57,43,0.12);
+}
+.step-dot.done{
+  border-color:var(--green);
+  background:var(--green-light);
+  color:var(--green);
+  font-size:13px;
+}
+.step-label{font-size:13px;color:var(--text-3);transition:color 0.3s var(--ease)}
+.step-pill.active .step-label{color:var(--text);font-weight:500}
+.step-pill.done .step-label{color:var(--green)}
+
+/* Animated step connector */
+.step-connector{
+  flex:1;
+  height:2px;
+  background:var(--border);
+  margin:0 8px;
+  min-width:28px;
+  border-radius:2px;
+  position:relative;
+  overflow:hidden;
+}
+.step-connector-fill{
+  position:absolute;
+  inset:0;
+  background:var(--red);
+  border-radius:2px;
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 0.5s var(--ease);
+}
+.step-connector.done .step-connector-fill{transform:scaleX(1)}
+
+/* ---- MAIN GRID ---- */
+.main-grid{display:grid;gap:24px;align-items:start}
+@media(min-width:920px){.main-grid{grid-template-columns:1fr 320px}}
+
+/* ---- FORM CARD ---- */
+.form-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh-xl);
+  overflow:hidden;
+}
+
+/* Step section transitions */
+.form-section{
+  padding:36px 32px;
+  display:none;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 0.32s var(--ease), transform 0.32s var(--ease);
+}
+.form-section.active{
+  display:block;
+}
+.form-section.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.form-section-header{
+  background:linear-gradient(to bottom, var(--bg), var(--white));
+  border-bottom:1px solid var(--border-light);
+  margin:-36px -32px 32px;
+  padding:32px 32px 28px;
+}
+.form-section-title{
+  font-family:var(--font-d);
+  font-size:24px;font-weight:400;
+  color:var(--text);
+  margin-bottom:6px;
+  letter-spacing:-0.01em;
+}
+.form-section-desc{font-size:14px;color:var(--text-2);line-height:1.65;font-weight:300}
+
+/* ---- PACKAGE GRID ---- */
+.pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:560px){.pkg-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* Package entrance animation */
+@keyframes pkgEnter{
+  from{opacity:0;transform:translateY(14px) scale(0.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.pkg-option{
+  position:relative;
+  border:1.5px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:24px 12px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color 0.22s var(--ease), background 0.22s var(--ease),
+             transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+  background:var(--off-white);
+  user-select:none;
+  /* entrance state — JS will add .pkg-entered */
+  opacity:0;
+  transform:translateY(14px) scale(0.97);
+}
+.pkg-option.pkg-entered{
+  animation:pkgEnter 0.38s var(--ease) both;
+}
+.pkg-option:hover{
+  border-color:var(--red);
+  background:var(--red-light);
+  transform:translateY(-2px);
+  box-shadow:var(--sh);
+}
+.pkg-option.selected{
+  border-color:var(--red);
+  background:var(--red-light);
+  box-shadow:0 0 0 3px rgba(192,57,43,0.1), var(--sh-sm);
+  transform:translateY(-1px);
+}
+.pkg-option.featured{
+  border-color:var(--gold-border);
+  background:var(--gold-light);
+}
+.pkg-option.featured:hover{
+  border-color:var(--gold);
+  background:var(--gold-light);
+}
+.pkg-option.featured.selected{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(154,124,79,0.12), var(--sh-sm);
+  transform:translateY(-1px);
+}
+.pkg-badge{
+  position:absolute;
+  top:-11px;left:50%;
+  transform:translateX(-50%);
+  background:var(--gold);
+  color:var(--white);
+  font-size:9px;font-weight:700;
+  padding:3px 10px;
+  border-radius:100px;
+  white-space:nowrap;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  box-shadow:0 2px 8px rgba(154,124,79,0.3);
+}
+.pkg-num{
+  font-family:var(--font-d);
+  font-size:44px;line-height:1;
+  color:var(--text);
+  margin-bottom:2px;
+  transition:color 0.2s;
+}
+.pkg-option.selected .pkg-num{color:var(--red)}
+.pkg-option.featured.selected .pkg-num{color:var(--gold-d)}
+.pkg-unit{
+  font-size:9.5px;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:10px;
+}
+.pkg-price{
+  font-size:16px;font-weight:700;color:var(--text-2);
+  transition:color 0.2s;
+}
+.pkg-option.selected .pkg-price{color:var(--red)}
+.pkg-option.featured .pkg-price{color:var(--gold-d)}
+.pkg-option.featured.selected .pkg-price{color:var(--gold-d)}
+
+/* ---- FORM FIELDS ---- */
+.field-group{margin-bottom:20px}
+
+.field-label{
+  display:block;
+  font-size:13px;font-weight:500;
+  color:var(--text);
+  margin-bottom:7px;
+  transition:color 0.2s var(--ease);
+}
+.field-group:focus-within .field-label{color:var(--red)}
+
+.field-hint-label{font-weight:300;font-size:12px;color:var(--text-3);margin-left:5px}
+.field-input{
+  width:100%;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:12px 16px;
+  font-size:15px;
+  font-family:var(--font-b);
+  color:var(--text);
+  transition:border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+.field-input:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(192,57,43,0.08);
+}
+.field-input::placeholder{color:var(--text-4)}
+.field-row-2{display:grid;gap:16px}
+@media(min-width:500px){.field-row-2{grid-template-columns:1fr 1fr}}
+.field-hint{font-size:12px;color:var(--text-3);margin-top:6px;line-height:1.5}
+
+/* ---- CHECKBOX ---- */
+.checkbox-row{
+  display:flex;align-items:flex-start;gap:12px;
+  cursor:pointer;margin-bottom:14px;
+}
+.checkbox-row:last-child{margin-bottom:0}
+.checkbox-row input[type="checkbox"]{
+  width:17px;height:17px;
+  accent-color:var(--red);
+  margin-top:2px;flex-shrink:0;cursor:pointer;
+}
+.checkbox-text{font-size:14px;color:var(--text-2);line-height:1.6;font-weight:300}
+.checkbox-text strong{font-weight:500;color:var(--text)}
+
+/* ---- ERROR ---- */
+.error-msg{
+  background:var(--red-light);
+  border:1px solid var(--red-border);
+  border-radius:var(--r);
+  padding:12px 16px;
+  font-size:13px;color:#8b1a11;
+  margin-top:20px;
+  display:none;
+  line-height:1.5;
+}
+.error-msg.show{display:block}
+
+/* ---- FORM ACTIONS ---- */
+.form-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:20px 32px;
+  border-top:1px solid var(--border-light);
+  background:var(--off-white);
+}
+
+/* ---- BUTTONS ---- */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:var(--white);
+  font-family:var(--font-b);font-size:15px;font-weight:500;
+  padding:13px 26px;
+  border-radius:var(--r);border:none;cursor:pointer;
+  transition:background 0.2s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  white-space:nowrap;letter-spacing:0;
+}
+.btn-primary:hover{background:var(--red-d);transform:translateY(-1px);box-shadow:var(--sh-red)}
+.btn-primary:active{transform:translateY(0);box-shadow:none}
+.btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--white);border:1px solid var(--border);
+  color:var(--text-2);font-family:var(--font-b);
+  font-size:14px;font-weight:400;
+  padding:11px 20px;border-radius:var(--r);
+  cursor:pointer;transition:all 0.18s var(--ease);white-space:nowrap;
+}
+.btn-secondary:hover{border-color:var(--text-3);color:var(--text);background:var(--bg)}
+
+/* ---- SUCCESS SCREEN ---- */
+.success-wrap{text-align:center;padding:64px 32px 56px}
+@keyframes successCircleIn{
+  0%{transform:scale(0.6);opacity:0}
+  60%{transform:scale(1.08)}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes checkDraw{
+  from{stroke-dashoffset:30}
+  to{stroke-dashoffset:0}
+}
+.success-icon-circle{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--green-light);
+  border:1.5px solid rgba(45,122,95,0.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 28px;
+  box-shadow:0 0 0 8px rgba(45,122,95,0.08);
+  animation:successCircleIn 0.45s var(--ease) both;
+}
+.success-icon-circle svg{color:var(--green)}
+.success-icon-circle svg polyline{
+  stroke-dasharray:30;
+  stroke-dashoffset:30;
+  animation:checkDraw 0.4s 0.35s var(--ease) forwards;
+}
+.success-title{
+  font-family:var(--font-d);
+  font-size:32px;font-weight:400;
+  color:var(--text);
+  margin-bottom:14px;
+  letter-spacing:-0.01em;
+}
+.success-sub{
+  font-size:15px;color:var(--text-2);
+  max-width:440px;margin:0 auto 20px;
+  line-height:1.7;font-weight:300;
+}
+.success-ref{
+  display:inline-block;
+  font-size:12px;font-weight:600;
+  color:var(--text-2);
+  letter-spacing:0.06em;
+  background:var(--off-white);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:7px 20px;
+  margin-bottom:36px;
+}
+
+/* ---- SIDEBAR ---- */
+.sidebar{
+  display:flex;flex-direction:column;gap:16px;
+  position:sticky;top:90px;
+}
+.sidebar-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh-sm);
+  padding:26px;
+}
+.sidebar-card-title{
+  font-size:10px;font-weight:700;
+  color:var(--text-3);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.order-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;
+  border-bottom:1px solid var(--border-light);
+}
+.order-row:last-of-type{border-bottom:none}
+.order-row-label{font-size:14px;color:var(--text-2);font-weight:300}
+.order-row-value{font-size:14px;color:var(--text);font-weight:500}
+.order-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:16px;
+  border-top:1.5px solid var(--border);
+  margin-top:4px;
+}
+.order-total-label{font-size:15px;font-weight:500;color:var(--text)}
+.order-total-value{
+  font-size:22px;font-weight:600;color:var(--red);
+  font-family:var(--font-d);
+  /* Summary price pulse animation */
+  transition:transform 0.2s var(--ease);
+  display:inline-block;
+}
+@keyframes pricePulse{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.12)}
+  100%{transform:scale(1)}
+}
+.order-total-value.pulse{animation:pricePulse 0.3s var(--ease)}
+
+.trust-list{display:flex;flex-direction:column;gap:14px}
+.trust-item{display:flex;align-items:flex-start;gap:12px}
+.trust-icon{
+  width:18px;height:18px;
+  color:var(--text-3);
+  flex-shrink:0;margin-top:1px;
+}
+.trust-text{font-size:13px;color:var(--text-2);line-height:1.55;font-weight:300}
+.trust-text strong{font-weight:500;color:var(--text)}
+.sidebar-note{
+  font-size:12px;color:var(--text-3);line-height:1.6;
+  text-align:center;
+  padding-top:16px;
+  border-top:1px solid var(--border-light);
+  margin-top:16px;
+}
+
+/* ---- FOOTER ---- */
+footer{background:var(--text);color:rgba(255,255,255,0.55);margin-top:auto}
+.ft-main{
+  max-width:1160px;margin:0 auto;
+  padding:56px 32px 48px;
+  display:grid;grid-template-columns:1fr auto;gap:48px;align-items:start;
+}
+@media(max-width:640px){.ft-main{grid-template-columns:1fr;gap:32px;padding:40px 24px 32px}}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ft-logo-icon{
+  width:32px;height:32px;background:rgba(255,255,255,0.1);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ft-logo-icon svg{width:14px;height:14px;color:rgba(255,255,255,0.8)}
+.ft-name{font-family:var(--font-d);font-size:18px;color:rgba(255,255,255,0.9)}
+.ft-desc{font-size:13.5px;color:rgba(255,255,255,0.4);line-height:1.65;max-width:300px;font-weight:300}
+.ft-col{min-width:120px}
+.ft-col-t{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ft-col ul li a{font-size:14px;color:rgba(255,255,255,0.5);transition:color 0.15s}
+.ft-col ul li a:hover{color:rgba(255,255,255,0.85)}
+.ft-bottom{
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding:18px 32px;
+  max-width:1160px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.ft-copy{font-size:12px;color:rgba(255,255,255,0.25)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:640px){
+  .page-wrap{padding:32px 20px 60px}
+  .nav-inner{padding:0 20px}
+  .form-section{padding:28px 20px}
+  .form-section-header{margin:-28px -20px 24px;padding:24px 20px 20px}
+  .form-actions{padding:16px 20px}
+  .ft-bottom{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-pill"><span class="announce-pill-dot"></span>Ankara'da Tek</span>
+    <strong>pilavustuask.com güvencesiyle</strong>
+    <span class="announce-sep">·</span> SSL Korumalı
+    <span class="announce-sep">·</span> KVKK Uyumlu
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav at-top" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+        </svg>
+      </span>
+      <span class="nav-logo-name">Askıda Pilav</span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Ana Sayfa
+    </a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="page-eyebrow">Bağış Platformu</p>
+    <h1 class="page-title">Bağış <em>yap</em></h1>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="steps-bar">
+    <div class="step-pill active" id="pill-1">
+      <div class="step-dot active" id="dot-1">1</div>
+      <span class="step-label">Paket</span>
+    </div>
+    <div class="step-connector" id="connector-1">
+      <div class="step-connector-fill"></div>
+    </div>
+    <div class="step-pill" id="pill-2">
+      <div class="step-dot" id="dot-2">2</div>
+      <span class="step-label">Bilgiler</span>
+    </div>
+    <div class="step-connector" id="connector-2">
+      <div class="step-connector-fill"></div>
+    </div>
+    <div class="step-pill" id="pill-3">
+      <div class="step-dot" id="dot-3">3</div>
+      <span class="step-label">Tamamlandı</span>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: FORM CARD -->
+    <div>
+      <div class="form-card">
+
+        <!-- STEP 1: Package Selection -->
+        <div class="form-section active" id="step1">
+          <div class="form-section-header">
+            <h2 class="form-section-title">Paket seçin</h2>
+            <p class="form-section-desc">Kaç öğrenciye yemek ısmarlayacağınızı seçin. Her paket bir öğün Tavuklu Pilav + Ayran'ı kapsar (₺200/kişi).</p>
+          </div>
+          <div class="pkg-grid">
+            <div class="pkg-option" data-amount="1" data-price="200" onclick="selectPkg(this)">
+              <div class="pkg-num">1</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺200</div>
+            </div>
+            <div class="pkg-option" data-amount="3" data-price="600" onclick="selectPkg(this)">
+              <div class="pkg-num">3</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺600</div>
+            </div>
+            <div class="pkg-option" data-amount="5" data-price="1000" onclick="selectPkg(this)">
+              <div class="pkg-num">5</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺1.000</div>
+            </div>
+            <div class="pkg-option featured" data-amount="10" data-price="1900" onclick="selectPkg(this)">
+              <div class="pkg-badge">En Çok Seçilen</div>
+              <div class="pkg-num">10</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺1.900</div>
+            </div>
+            <div class="pkg-option" data-amount="20" data-price="3800" onclick="selectPkg(this)">
+              <div class="pkg-num">20</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺3.800</div>
+            </div>
+            <div class="pkg-option" data-amount="50" data-price="9500" onclick="selectPkg(this)">
+              <div class="pkg-num">50</div>
+              <div class="pkg-unit">Tavuklu Pilav + Ayran</div>
+              <div class="pkg-price">₺9.500</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Donor Info -->
+        <div class="form-section" id="step2">
+          <div class="form-section-header">
+            <h2 class="form-section-title">Bağışçı bilgileri</h2>
+            <p class="form-section-desc">Bağış onayı e-posta adresinize gönderilecektir. Anonim bağış seçeneğini kullanabilirsiniz.</p>
+          </div>
+
+          <div class="field-row-2">
+            <div class="field-group">
+              <label class="field-label" for="firstName">Ad</label>
+              <input class="field-input" type="text" id="firstName" placeholder="Adınız" autocomplete="given-name">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="lastName">Soyad</label>
+              <input class="field-input" type="text" id="lastName" placeholder="Soyadınız" autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="email">E-posta adresi</label>
+            <input class="field-input" type="email" id="email" placeholder="ornek@mail.com" autocomplete="email">
+            <p class="field-hint">Bağış onayı ve referans kodu bu adrese gönderilecektir.</p>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="phone">
+              Telefon <span class="field-hint-label">(opsiyonel)</span>
+            </label>
+            <input class="field-input" type="tel" id="phone" placeholder="+90 5xx xxx xx xx" autocomplete="tel">
+          </div>
+
+          <div class="field-group" style="margin-top:28px">
+            <label class="checkbox-row">
+              <input type="checkbox" id="kvkk">
+              <span class="checkbox-text">
+                Kişisel verilerimin 6698 sayılı KVKK kapsamında işlenmesine ve <strong>Gizlilik Politikası</strong>'na onay veriyorum.
+              </span>
+            </label>
+            <label class="checkbox-row">
+              <input type="checkbox" id="anonymous">
+              <span class="checkbox-text">
+                Bağışımın anonim kalmasını istiyorum. İsmim hiçbir yerde gösterilmesin.
+              </span>
+            </label>
+          </div>
+
+          <div class="error-msg" id="errorMsg">
+            Lütfen zorunlu alanları doldurun ve KVKK onayını verin.
+          </div>
+        </div>
+
+        <!-- STEP 3: Success -->
+        <div class="form-section" id="step3">
+          <div class="success-wrap">
+            <div class="success-icon-circle">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h2 class="success-title">Bağışınız alındı</h2>
+            <p class="success-sub">Teşekkür ederiz. Bağışınız ihtiyaç sahibi öğrencilere ulaştırılacak. Onay e-postası birkaç dakika içinde gelecektir.</p>
+            <div class="success-ref" id="successRef"></div>
+            <a href="index.html" class="btn-primary" style="margin:0 auto">
+              Ana Sayfaya Dön
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- FORM ACTIONS BAR -->
+        <div class="form-actions" id="formActions">
+          <button class="btn-secondary" id="btnBack" onclick="goBack()" style="visibility:hidden">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Geri
+          </button>
+          <button class="btn-primary" id="btnNext" onclick="goNext()">
+            Devam Et
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Order Summary -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Sipariş Özeti</div>
+        <div class="order-row">
+          <span class="order-row-label">Paket</span>
+          <span class="order-row-value" id="summaryPkg">—</span>
+        </div>
+        <div class="order-row">
+          <span class="order-row-label">Birim fiyat</span>
+          <span class="order-row-value" id="summaryUnit">—</span>
+        </div>
+        <div class="order-total-row">
+          <span class="order-total-label">Toplam</span>
+          <span class="order-total-value" id="summaryTotal">—</span>
+        </div>
+        <p class="sidebar-note">Bağışınız doğrudan üniversite yemekhanelerine iletilir. Aracı komisyon alınmaz.</p>
+      </div>
+
+      <!-- Trust -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Güvenli Bağış</div>
+        <div class="trust-list">
+
+          <!-- Lock / SSL -->
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span class="trust-text"><strong>256-bit SSL şifreleme</strong> ile tüm verileriniz korunur.</span>
+          </div>
+
+          <!-- Shield / KVKK -->
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span class="trust-text"><strong>KVKK uyumlu</strong> altyapı. Verileriniz üçüncü taraflarla paylaşılmaz.</span>
+          </div>
+
+          <!-- Activity / Transparency -->
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span class="trust-text"><strong>Her bağış izlenebilir.</strong> Şeffaflık raporlarına erişebilirsiniz.</span>
+          </div>
+
+          <!-- Clock / 7/24 -->
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="trust-text">7/24 <strong>anlık işlem.</strong> Bağışınız aynı gün sisteme eklenir.</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /main-grid -->
+</div><!-- /page-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-main">
+    <div>
+      <div class="ft-logo">
+        <span class="ft-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+          </svg>
+        </span>
+        <span class="ft-name">Askıda Pilav</span>
+      </div>
+      <p class="ft-desc">Ankara'daki öğrencilere sıcak yemek bağışı platformu.</p>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-t">Platform</div>
+      <ul>
+        <li><a href="donate.html">Bağış Yap</a></li>
+        <li><a href="student-register.html">Öğrenci Kaydı</a></li>
+        <li><a href="index.html">Ana Sayfa</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2024 pilavustuask.com.tr</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://svvjgqdyzjschuoxvsig.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+let currentStep = 1, selectedAmount = 0, selectedPrice = 0;
+
+// Pre-select via URL param ?amount=N
+(function() {
+  const urlParam = parseInt(new URLSearchParams(location.search).get('amount'));
+  if (urlParam) {
+    const el = document.querySelector('.pkg-option[data-amount="' + urlParam + '"]');
+    if (el) selectPkg(el);
+  }
+})();
+
+function selectPkg(el) {
+  document.querySelectorAll('.pkg-option').forEach(function(o) { o.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedAmount = parseInt(el.dataset.amount);
+  selectedPrice = parseInt(el.dataset.price);
+  updateSummary();
+}
+
+function updateSummary() {
+  if (!selectedAmount) return;
+  document.getElementById('summaryPkg').textContent = selectedAmount + ' yemek';
+  document.getElementById('summaryUnit').textContent = '₺' + Math.round(selectedPrice / selectedAmount).toLocaleString('tr-TR') + ' / yemek';
+  var totalEl = document.getElementById('summaryTotal');
+  totalEl.textContent = '₺' + selectedPrice.toLocaleString('tr-TR');
+  // Pulse animation on total change
+  totalEl.classList.remove('pulse');
+  void totalEl.offsetWidth; // reflow to restart animation
+  totalEl.classList.add('pulse');
+}
+
+function setStep(n) {
+  // Fade out current section first
+  var prevSec = document.querySelector('.form-section.active');
+  if (prevSec) {
+    prevSec.classList.remove('visible');
+    // Small delay so fade-out plays before display:none
+    setTimeout(function() {
+      prevSec.classList.remove('active');
+      activateStep(n);
+    }, 120);
+  } else {
+    activateStep(n);
+  }
+}
+
+function activateStep(n) {
+  document.querySelectorAll('.form-section').forEach(function(sec, idx) {
+    sec.classList.toggle('active', idx + 1 === n);
+  });
+  // Trigger enter transition on the newly active section
+  var newSec = document.getElementById('step' + n);
+  if (newSec) {
+    // Force reflow, then add visible class
+    void newSec.offsetWidth;
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        newSec.classList.add('visible');
+      });
+    });
+  }
+
+  // Update step dots + connectors
+  for (var i = 1; i <= 3; i++) {
+    var dot = document.getElementById('dot-' + i);
+    var pill = document.getElementById('pill-' + i);
+    dot.classList.remove('active', 'done');
+    pill.classList.remove('active', 'done');
+    if (i < n) {
+      dot.classList.add('done');
+      dot.textContent = '✓';
+      pill.classList.add('done');
+    } else if (i === n) {
+      dot.classList.add('active');
+      pill.classList.add('active');
+      dot.textContent = i;
+    } else {
+      dot.textContent = i;
+    }
+  }
+
+  // Animate progress connectors
+  for (var j = 1; j <= 2; j++) {
+    var conn = document.getElementById('connector-' + j);
+    if (conn) {
+      conn.classList.toggle('done', j < n);
+    }
+  }
+
+  // Actions bar
+  var fa = document.getElementById('formActions');
+  fa.style.display = n === 3 ? 'none' : 'flex';
+  document.getElementById('btnBack').style.visibility = (n > 1 && n < 3) ? 'visible' : 'hidden';
+  var btnNext = document.getElementById('btnNext');
+  if (n === 2) {
+    btnNext.innerHTML = 'Bağış Yap <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  } else {
+    btnNext.innerHTML = 'Devam Et <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  }
+  btnNext.disabled = false;
+  currentStep = n;
+}
+
+function goBack() { if (currentStep > 1) setStep(currentStep - 1); }
+
+async function goNext() {
+  if (currentStep === 1) {
+    if (!selectedAmount) { alert('Lütfen bir paket seçin.'); return; }
+    setStep(2);
+  } else if (currentStep === 2) {
+    var firstName = document.getElementById('firstName').value.trim();
+    var lastName  = document.getElementById('lastName').value.trim();
+    var email     = document.getElementById('email').value.trim();
+    var kvkk      = document.getElementById('kvkk').checked;
+    var errEl     = document.getElementById('errorMsg');
+    if (!firstName || !lastName || !email || !kvkk) { errEl.classList.add('show'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Lütfen geçerli bir e-posta adresi girin.';
+      errEl.classList.add('show'); return;
+    }
+    errEl.classList.remove('show');
+    errEl.textContent = 'Lütfen zorunlu alanları doldurun ve KVKK onayını verin.';
+    var btnNext = document.getElementById('btnNext');
+    btnNext.disabled = true; btnNext.innerHTML = 'Kaydediliyor…';
+    var isAnon = document.getElementById('anonymous').checked;
+    var phone  = document.getElementById('phone').value.trim();
+    try {
+      var payload = {
+        donor_name: isAnon ? 'Anonim' : firstName + ' ' + lastName,
+        donor_email: email, donor_phone: phone || null,
+        meal_count: selectedAmount, amount: selectedPrice,
+        is_anonymous: isAnon, status: 'completed'
+      };
+      var result = await db.from('donations').insert(payload);
+      if (result.error) throw result.error;
+      var refCode = 'AP-' + Date.now().toString(36).toUpperCase().slice(-8);
+      document.getElementById('successRef').textContent = 'Referans Kodu: ' + refCode;
+      setStep(3);
+    } catch (e) {
+      btnNext.disabled = false;
+      btnNext.innerHTML = 'Bağış Yap <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      errEl.textContent = 'İşlem sırasında bir hata oluştu: ' + (e.message || 'Bilinmeyen hata');
+      errEl.classList.add('show');
+    }
+  }
+}
+
+// Nav scroll effect
+const nav = document.getElementById('nav');
+function updateNav() {
+  nav.classList.toggle('at-top', window.scrollY < 8);
+  nav.classList.toggle('scrolled', window.scrollY >= 8);
+}
+window.addEventListener('scroll', updateNav, {passive: true});
+updateNav();
+
+// --- Premium: package tile entrance animation with stagger ---
+(function() {
+  var tiles = document.querySelectorAll('.pkg-option');
+  tiles.forEach(function(tile, i) {
+    setTimeout(function() {
+      tile.classList.add('pkg-entered');
+    }, 80 + i * 50);
+  });
+})();
+
+// --- Premium: show step 1 with entrance transition on load ---
+(function() {
+  var step1 = document.getElementById('step1');
+  if (step1) {
+    void step1.offsetWidth;
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        step1.classList.add('visible');
+      });
+    });
+  }
+})();
+
+// Remove pulse class after animation ends to allow re-trigger
+document.getElementById('summaryTotal').addEventListener('animationend', function() {
+  this.classList.remove('pulse');
+});
+</script>
+</body>
+</html>

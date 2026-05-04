@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Yemek Talep Et — Askıda Pilav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff; --off-white:#faf9f7; --bg:#f5f3ef; --bg-2:#f0ede7;
+  --border:#e8e4dc; --border-light:#f0ece4;
+  --text:#1a1814; --text-2:#6b6560; --text-3:#b0aa9f; --text-4:#d4cfc8;
+  --red:#c0392b; --red-d:#a93226; --red-light:#fdf3f2; --red-border:#f5cac7;
+  --gold:#9a7c4f; --gold-d:#8a6e41; --gold-light:#f9f5ee; --gold-border:rgba(154,124,79,0.25);
+  --green:#2d7a5f; --green-light:#edf7f3;
+  --r-xs:4px; --r-sm:6px; --r:10px; --r-lg:16px; --r-xl:24px; --r-2xl:32px;
+  --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+  --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+  --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+  --sh-red:0 12px 40px rgba(192,57,43,0.25);
+  --font-d:'DM Serif Display',Georgia,serif;
+  --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+html{font-size:16px;scroll-behavior:smooth;text-rendering:optimizeLegibility}
+body{background:linear-gradient(180deg,var(--off-white) 0%,var(--bg) 100%);background-attachment:fixed;color:var(--text);font-family:var(--font-b);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;min-height:100dvh;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--red-light);color:var(--red)}
+
+/* ── Announce bar ── */
+.announce{background:var(--text);color:rgba(255,255,255,0.65);text-align:center;padding:10px 20px;font-size:11.5px;letter-spacing:0.025em;flex-shrink:0}
+.announce-inner{display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.announce-pill{display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2.5px 9px;border-radius:100px}
+.announce-pill-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:fadepulse 2s ease infinite}
+@keyframes fadepulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.announce-sep{color:rgba(255,255,255,0.2)}
+.announce strong{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow 0.3s;flex-shrink:0}
+.nav.scrolled{box-shadow:var(--sh)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:32px;height:32px;background:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-icon svg{width:15px;height:15px;color:#fff}
+.nav-logo-name{font-family:var(--font-d);font-size:18px;color:var(--text);letter-spacing:-0.01em}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--text-2);padding:8px 14px;border-radius:var(--r-sm);transition:all 0.18s;border:1px solid var(--border)}
+.nav-back:hover{color:var(--text);background:var(--bg);border-color:var(--text-3)}
+.nav-back svg{transition:transform 0.2s}
+.nav-back:hover svg{transform:translateX(-2px)}
+
+/* ── Page layout ── */
+.page-wrap{max-width:1200px;margin:0 auto;padding:48px 32px 80px;flex:1}
+
+/* ── Page header ── */
+.page-header{margin-bottom:40px}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px}
+.section-tag::before{content:'';display:block;width:18px;height:2px;background:var(--red);border-radius:1px}
+.page-title{font-family:var(--font-d);font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.08;letter-spacing:-0.02em;color:var(--text);margin-bottom:14px}
+.page-title em{font-style:italic;color:var(--red)}
+.page-desc{font-size:15px;color:var(--text-2);max-width:520px;line-height:1.7;font-weight:400}
+
+/* ── 2-col grid ── */
+.main-grid{display:grid;gap:28px;align-items:start}
+@media(min-width:900px){.main-grid{grid-template-columns:1fr 340px}}
+
+/* ── Form card ── */
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--sh-xl);overflow:hidden}
+
+/* ── Card header ── */
+.card-header{background:linear-gradient(to bottom,var(--bg),var(--white));border-bottom:1px solid var(--border-light);padding:32px 36px 28px}
+.card-header-title{font-family:var(--font-d);font-size:24px;font-style:italic;color:var(--text);margin-bottom:6px;letter-spacing:-0.01em}
+.card-header-desc{font-size:13.5px;color:var(--text-2);line-height:1.65;font-weight:300}
+
+/* ── Form body ── */
+.form-body{padding:36px}
+
+/* ── Selector labels ── */
+.selector-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;letter-spacing:-0.01em}
+
+/* ── Meal type tiles ── */
+.meal-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+@media(max-width:400px){.meal-tiles{grid-template-columns:1fr}}
+.meal-tile{position:relative;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px 14px 16px;text-align:center;cursor:pointer;transition:all 0.22s var(--ease);background:var(--off-white);user-select:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.meal-tile:hover{border-color:var(--text-3);background:var(--white);transform:translateY(-1px);box-shadow:var(--sh)}
+.meal-tile.selected{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 3px rgba(192,57,43,0.09),var(--sh)}
+.meal-tile-icon{width:36px;height:36px;border-radius:50%;background:var(--bg-2);display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.meal-tile.selected .meal-tile-icon{background:rgba(192,57,43,0.1)}
+.meal-tile-icon svg{color:var(--text-3);transition:color 0.2s}
+.meal-tile.selected .meal-tile-icon svg{color:var(--red)}
+.meal-tile-name{font-size:13px;font-weight:600;color:var(--text-2);letter-spacing:-0.01em;transition:color 0.2s}
+.meal-tile.selected .meal-tile-name{color:var(--red-d)}
+.meal-tile-time{font-size:11px;color:var(--text-3);font-weight:300;transition:color 0.2s}
+.meal-tile.selected .meal-tile-time{color:var(--red);opacity:0.7}
+
+/* ── Urgency tiles ── */
+.urgency-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+@media(max-width:400px){.urgency-tiles{grid-template-columns:1fr}}
+.urgency-tile{border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px 12px;text-align:center;cursor:pointer;transition:all 0.22s var(--ease);background:var(--off-white);user-select:none;display:flex;flex-direction:column;align-items:center;gap:6px}
+.urgency-tile:hover{background:var(--white);transform:translateY(-1px);box-shadow:var(--sh)}
+.urgency-tile-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;transition:transform 0.2s}
+.urgency-tile.sel .urgency-tile-dot{transform:scale(1.25)}
+.urgency-tile-name{font-size:13px;font-weight:600;color:var(--text-2);letter-spacing:-0.01em}
+.urgency-tile-sub{font-size:11px;color:var(--text-3)}
+/* Normal (green) */
+.urgency-tile[data-val="normal"]:hover{border-color:var(--green);background:var(--green-light)}
+.urgency-tile[data-val="normal"].sel{border-color:var(--green);background:var(--green-light);box-shadow:0 0 0 3px rgba(45,122,95,0.1)}
+.urgency-tile[data-val="normal"].sel .urgency-tile-name{color:var(--green)}
+/* Orta (gold) */
+.urgency-tile[data-val="orta"]:hover{border-color:var(--gold);background:var(--gold-light)}
+.urgency-tile[data-val="orta"].sel{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 3px rgba(154,124,79,0.1)}
+.urgency-tile[data-val="orta"].sel .urgency-tile-name{color:var(--gold-d)}
+/* Acil (red) */
+.urgency-tile[data-val="acil"]:hover{border-color:var(--red);background:var(--red-light)}
+.urgency-tile[data-val="acil"].sel{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 3px rgba(192,57,43,0.09)}
+.urgency-tile[data-val="acil"].sel .urgency-tile-name{color:var(--red-d)}
+
+/* ── Form section divider ── */
+.form-divider{height:1px;background:var(--border-light);margin:28px 0}
+
+/* ── Field groups ── */
+.field-group{margin-bottom:22px}
+.field-group:last-child{margin-bottom:0}
+.field-label{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:7px;transition:color 0.15s}
+.field-label .optional{font-weight:400;color:var(--text-3);margin-left:4px;font-size:12px}
+.field-input{width:100%;padding:12px 15px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-family:var(--font-b);font-size:15px;color:var(--text);outline:none;transition:border-color 0.18s,box-shadow 0.18s;-webkit-appearance:none;appearance:none}
+.field-input::placeholder{color:var(--text-4)}
+.field-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,0.08)}
+.field-input:focus + .field-focus-label,
+.field-input:focus ~ .field-focus-label{color:var(--red)}
+select.field-input{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b0aa9f' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+textarea.field-input{resize:vertical;min-height:100px;line-height:1.65}
+.field-row-2{display:grid;gap:16px}
+@media(min-width:540px){.field-row-2{grid-template-columns:1fr 1fr}}
+.field-hint{font-size:12px;color:var(--text-3);margin-top:6px;line-height:1.5}
+
+/* ── FAQ accordion ── */
+.faq-wrap{margin-top:32px;border-top:1px solid var(--border-light);padding-top:28px}
+.faq-wrap-title{font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px}
+.faq-list{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--border-light)}
+.faq-item:last-child{border-bottom:none}
+.faq-trigger{width:100%;background:none;border:none;padding:15px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;text-align:left;font-family:var(--font-b);font-size:13.5px;font-weight:500;color:var(--text);transition:color 0.15s}
+.faq-trigger:hover{color:var(--red)}
+.faq-chevron{flex-shrink:0;color:var(--text-3);transition:transform 0.28s var(--ease)}
+.faq-item.faq-open .faq-chevron{transform:rotate(180deg);color:var(--red)}
+.faq-body{overflow:hidden;max-height:0;transition:max-height 0.35s var(--ease)}
+.faq-item.faq-open .faq-body{max-height:260px}
+.faq-body-inner{font-size:13px;color:var(--text-2);line-height:1.8;padding-bottom:16px;font-weight:300}
+
+/* ── Error message ── */
+.error-msg{display:none;margin:0 36px 20px;padding:13px 16px;background:var(--red-light);border:1px solid var(--red-border);border-radius:var(--r);font-size:13px;color:var(--red);line-height:1.55}
+.error-msg.visible{display:flex;align-items:flex-start;gap:8px}
+.error-msg svg{flex-shrink:0;margin-top:1px}
+
+/* ── Form footer ── */
+.form-footer{padding:20px 36px 24px;border-top:1px solid var(--border-light);background:var(--off-white);display:flex;flex-direction:column;gap:12px}
+.form-footer-note{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:6px}
+
+/* ── Buttons ── */
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px 24px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-family:var(--font-b);font-size:15px;font-weight:500;cursor:pointer;transition:all 0.22s var(--ease);letter-spacing:-0.01em}
+.btn-primary:hover:not(:disabled){background:var(--red-d);box-shadow:var(--sh-red);transform:translateY(-1px)}
+.btn-primary:active:not(:disabled){transform:translateY(0);box-shadow:none}
+.btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.35);border-top-color:#fff;border-radius:50%;animation:spin 0.65s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Success screen ── */
+#success-screen{display:none;padding:72px 36px 80px;text-align:center}
+#success-screen.visible{display:block}
+.success-check-ring{width:80px;height:80px;border-radius:50%;background:var(--green-light);border:1.5px solid rgba(45,122,95,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative}
+.success-check-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(45,122,95,0.1)}
+.success-check-ring svg{color:var(--green);animation:checkpop 0.4s var(--ease) forwards}
+@keyframes checkpop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.success-title{font-family:var(--font-d);font-size:32px;font-style:italic;color:var(--text);margin-bottom:12px;letter-spacing:-0.01em}
+.success-sub{font-size:15px;color:var(--text-2);max-width:360px;margin:0 auto 24px;line-height:1.7;font-weight:300}
+.success-ref{display:inline-flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--text-2);font-weight:500;margin-bottom:32px;font-family:monospace;letter-spacing:0.03em}
+.success-ref-label{font-family:var(--font-b);font-style:normal;font-weight:400;color:var(--text-3);margin-right:2px;font-size:11px}
+.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;background:var(--white);color:var(--text);border:1.5px solid var(--border);border-radius:var(--r);font-family:var(--font-b);font-size:14px;font-weight:500;cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.btn-outline:hover{border-color:var(--text-2);background:var(--off-white)}
+
+/* ── Sidebar ── */
+.sidebar{display:flex;flex-direction:column;gap:14px}
+@media(min-width:900px){.sidebar{position:sticky;top:90px}}
+.sidebar-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--sh);padding:28px;overflow:hidden}
+.sidebar-card-title{font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.13em;text-transform:uppercase;margin-bottom:20px}
+
+/* ── How it works steps ── */
+.steps-list{display:flex;flex-direction:column;gap:0}
+.step-row{display:flex;gap:14px;padding:14px 0;position:relative}
+.step-row:not(:last-child)::after{content:'';position:absolute;left:15px;top:46px;bottom:-2px;width:1px;background:var(--border);z-index:0}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--bg-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-2);flex-shrink:0;position:relative;z-index:1;transition:all 0.2s}
+.step-row:hover .step-num{background:var(--red-light);border-color:var(--red-border);color:var(--red)}
+.step-content{}
+.step-name{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:2px}
+.step-detail{font-size:12px;color:var(--text-3);line-height:1.5;font-weight:300}
+
+/* ── Note card ── */
+.note-card{background:var(--gold-light);border:1px solid var(--gold-border);border-radius:var(--r-xl);padding:22px 24px;display:flex;gap:14px}
+.note-card-icon{width:36px;height:36px;border-radius:var(--r-sm);background:rgba(154,124,79,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.note-card-icon svg{color:var(--gold)}
+.note-card-text{font-size:13px;color:var(--text-2);line-height:1.7;font-weight:300}
+.note-card-text strong{color:var(--gold-d);font-weight:600}
+.note-card-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:500;color:var(--gold-d);margin-top:10px;transition:color 0.15s}
+.note-card-link:hover{color:var(--gold)}
+.note-card-link svg{flex-shrink:0}
+
+/* ── Support card ── */
+.support-row{display:flex;flex-direction:column;gap:8px}
+.support-label{font-size:13px;color:var(--text-2);line-height:1.55;font-weight:300}
+.support-email{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--red);transition:color 0.15s}
+.support-email:hover{color:var(--red-d)}
+
+/* ── Footer ── */
+footer{background:var(--text);margin-top:auto}
+.ft-main{max-width:1200px;margin:0 auto;padding:56px 32px 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ft-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.ft-logo-icon svg{width:15px;height:15px;color:rgba(255,255,255,0.6)}
+.ft-name{font-family:var(--font-d);font-size:18px;color:#fff;letter-spacing:-0.01em}
+.ft-desc{font-size:12.5px;color:rgba(255,255,255,0.35);line-height:1.85;font-weight:300;max-width:280px}
+.ft-links{display:flex;flex-direction:column;gap:10px;padding-top:4px}
+.ft-link{font-size:13px;color:rgba(255,255,255,0.4);transition:color 0.15s;font-weight:300}
+.ft-link:hover{color:#fff}
+.ft-bottom{max-width:1200px;margin:0 auto;padding:18px 32px;border-top:1px solid rgba(255,255,255,0.06)}
+.ft-copy{font-size:11.5px;color:rgba(255,255,255,0.2);font-weight:300}
+
+/* ── Responsive ── */
+@media(max-width:540px){
+  .nav-inner{padding:0 20px}
+  .page-wrap{padding:32px 20px 64px}
+  .card-header{padding:24px 24px 20px}
+  .form-body{padding:24px}
+  .error-msg{margin:0 24px 16px}
+  .form-footer{padding:16px 24px 20px}
+  .meal-tiles{grid-template-columns:1fr 1fr 1fr}
+  .urgency-tiles{grid-template-columns:1fr 1fr 1fr}
+  #success-screen{padding:56px 24px 64px}
+}
+@media(max-width:360px){
+  .meal-tiles,.urgency-tiles{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Announce bar -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-pill"><span class="announce-pill-dot"></span>Ankara'da Tek</span>
+    <strong>pilavustuask.com güvencesiyle</strong>
+    <span class="announce-sep">·</span>
+    SSL
+    <span class="announce-sep">·</span>
+    KVKK
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav at-top" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      </span>
+      <span class="nav-logo-name">Askıda Pilav</span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Ana Sayfa
+    </a>
+  </div>
+</nav>
+
+<!-- Page content -->
+<div class="page-wrap">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="section-tag">Öğrenci Talebi</div>
+    <h1 class="page-title">Yemek <em>talep et</em></h1>
+    <p class="page-desc">Kayıtlı öğrenciyseniz öğün talebi oluşturabilirsiniz. Talepler 24–48 saat içinde incelenerek ihtiyaç durumuna göre öncelik verilir.</p>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- LEFT: Form column -->
+    <div>
+      <div class="form-card">
+
+        <!-- Card header -->
+        <div class="card-header">
+          <div class="card-header-title">Talep formu</div>
+          <div class="card-header-desc">Aşağıdaki bilgileri eksiksiz doldurun. Talebiniz 24–48 saat içinde değerlendirilir ve e-postanıza bildirim gönderilir.</div>
+        </div>
+
+        <!-- Form body -->
+        <div id="form-body">
+          <div class="form-body" id="form-body-inner">
+
+            <!-- Meal type selector -->
+            <div class="field-group">
+              <span class="selector-label">Hangi öğünü talep ediyorsunuz?</span>
+              <div class="meal-tiles" role="group" aria-label="Öğün seçin">
+
+                <div class="meal-tile" data-val="kahvaltı" tabindex="0" role="button" aria-pressed="false">
+                  <div class="meal-tile-icon">
+                    <!-- Sun icon -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="5"/>
+                      <line x1="12" y1="1" x2="12" y2="3"/>
+                      <line x1="12" y1="21" x2="12" y2="23"/>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                      <line x1="1" y1="12" x2="3" y2="12"/>
+                      <line x1="21" y1="12" x2="23" y2="12"/>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                  </div>
+                  <div class="meal-tile-name">Kahvaltı</div>
+                  <div class="meal-tile-time">07:00 – 10:00</div>
+                </div>
+
+                <div class="meal-tile selected" data-val="öğle" tabindex="0" role="button" aria-pressed="true">
+                  <div class="meal-tile-icon">
+                    <!-- Utensils icon -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                      <line x1="7" y1="2" x2="7" y2="22"/>
+                      <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+                    </svg>
+                  </div>
+                  <div class="meal-tile-name">Öğle Yemeği</div>
+                  <div class="meal-tile-time">12:00 – 14:00</div>
+                </div>
+
+                <div class="meal-tile" data-val="akşam" tabindex="0" role="button" aria-pressed="false">
+                  <div class="meal-tile-icon">
+                    <!-- Moon icon -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                  </div>
+                  <div class="meal-tile-name">Akşam Yemeği</div>
+                  <div class="meal-tile-time">17:00 – 20:00</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Urgency selector -->
+            <div class="field-group">
+              <span class="selector-label">Aciliyet durumu</span>
+              <div class="urgency-tiles" role="radiogroup" aria-label="Aciliyet seçin">
+
+                <div class="urgency-tile sel" data-val="normal" tabindex="0" role="radio" aria-checked="true">
+                  <span class="urgency-tile-dot" style="background:var(--green)"></span>
+                  <div class="urgency-tile-name">Normal</div>
+                  <div class="urgency-tile-sub">Bu hafta</div>
+                </div>
+
+                <div class="urgency-tile" data-val="orta" tabindex="0" role="radio" aria-checked="false">
+                  <span class="urgency-tile-dot" style="background:var(--gold)"></span>
+                  <div class="urgency-tile-name">Orta</div>
+                  <div class="urgency-tile-sub">1–2 gün</div>
+                </div>
+
+                <div class="urgency-tile" data-val="acil" tabindex="0" role="radio" aria-checked="false">
+                  <span class="urgency-tile-dot" style="background:var(--red)"></span>
+                  <div class="urgency-tile-name">Acil</div>
+                  <div class="urgency-tile-sub">Bugün</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Fields -->
+            <div class="field-row-2">
+              <div class="field-group">
+                <label class="field-label" for="input-name">Adınız</label>
+                <input type="text" id="input-name" class="field-input" placeholder="Ad Soyad" autocomplete="name">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="input-student-id">Öğrenci No</label>
+                <input type="text" id="input-student-id" class="field-input" placeholder="2100000000" inputmode="numeric">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="input-university">Üniversite</label>
+              <select id="input-university" class="field-input">
+                <option value="">Üniversitenizi seçin…</option>
+                <option value="ODTÜ">ODTÜ</option>
+                <option value="Hacettepe">Hacettepe Üniversitesi</option>
+                <option value="Ankara Üniversitesi">Ankara Üniversitesi</option>
+                <option value="Bilkent">Bilkent Üniversitesi</option>
+                <option value="Gazi">Gazi Üniversitesi</option>
+                <option value="Atılım">Atılım Üniversitesi</option>
+                <option value="TOBB ETÜ">TOBB ETÜ</option>
+                <option value="Başkent">Başkent Üniversitesi</option>
+                <option value="Diğer">Diğer</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="input-email">E-posta <span class="optional">(bildirim için)</span></label>
+              <input type="email" id="input-email" class="field-input" placeholder="ornek@universite.edu.tr" autocomplete="email" inputmode="email">
+            </div>
+
+            <div class="field-group" style="margin-bottom:0">
+              <label class="field-label" for="input-notes">Notlar / Eklemek istedikleriniz <span class="optional">(opsiyonel)</span></label>
+              <textarea id="input-notes" class="field-input" placeholder="Durumunuzu kısaca açıklayabilirsiniz…" rows="3"></textarea>
+            </div>
+
+            <!-- FAQ accordion -->
+            <div class="faq-wrap">
+              <div class="faq-wrap-title">Sık sorulanlar</div>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-trigger" aria-expanded="false">
+                    <span>Talep ne zaman onaylanır?</span>
+                    <svg class="faq-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div class="faq-body" aria-hidden="true">
+                    <div class="faq-body-inner">Talepler genellikle 24–48 saat içinde incelenir. Acil olarak işaretlenen başvurular öncelik sırasına alınır ve çoğunlukla aynı gün değerlendirilir.</div>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-trigger" aria-expanded="false">
+                    <span>Kaç kez talep edebilirim?</span>
+                    <svg class="faq-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div class="faq-body" aria-hidden="true">
+                    <div class="faq-body-inner">Haftada bir kez talep oluşturabilirsiniz. Aktif bağış durumuna göre bu limit zaman zaman artırılabilmektedir.</div>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-trigger" aria-expanded="false">
+                    <span>Kimlik bilgilerim gizli mi?</span>
+                    <svg class="faq-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div class="faq-body" aria-hidden="true">
+                    <div class="faq-body-inner">Evet. Kişisel verileriniz KVKK kapsamında güvenli şekilde saklanır. Yemekhanede veya bağışçılar nezdinde kimliğiniz hiçbir surette açıklanmaz.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- /form-body -->
+
+          <!-- Error message -->
+          <div id="error-msg" class="error-msg" role="alert">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="error-text"></span>
+          </div>
+
+          <!-- Form footer / submit -->
+          <div class="form-footer">
+            <button id="submit-btn" class="btn-primary">
+              Talebi Gönder
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <p class="form-footer-note">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Verileriniz KVKK kapsamında güvende ve şifreli tutulmaktadır.
+            </p>
+          </div>
+
+        </div><!-- /#form-body -->
+
+        <!-- Success screen -->
+        <div id="success-screen">
+          <div class="success-check-ring">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h2 class="success-title">Talebiniz alındı</h2>
+          <p class="success-sub">Talebiniz başarıyla iletildi. 24–48 saat içinde değerlendirilecek ve e-posta adresinize bildirim gönderilecektir.</p>
+          <div class="success-ref">
+            <span class="success-ref-label">Referans</span>
+            <span id="success-ref-code">—</span>
+          </div>
+          <br>
+          <a href="index.html" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Ana Sayfaya Dön
+          </a>
+        </div>
+
+      </div><!-- /.form-card -->
+    </div><!-- /left col -->
+
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar">
+
+      <!-- How it works card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Nasıl işler?</div>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-name">Formu doldurun</div>
+              <div class="step-detail">Öğün tipini, aciliyet durumunuzu ve kişisel bilgilerinizi girin.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-name">24–48 saat içinde onay</div>
+              <div class="step-detail">Talebiniz ekibimiz tarafından incelenerek onaylanır veya geri dönüş yapılır.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-name">QR kodunuzu alın</div>
+              <div class="step-detail">Onay e-postasındaki QR kodu ile yemekhaneye gidin.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important note card -->
+      <div class="note-card">
+        <div class="note-card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <div class="note-card-text">Talep edebilmek için önce <strong>öğrenci kaydı yaptırmanız</strong> gerekmektedir. Henüz kayıt olmadıysanız aşağıdaki bağlantıyı kullanın.</div>
+          <a href="student-register.html" class="note-card-link">
+            Öğrenci kaydı yap
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Support card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Yardım</div>
+        <div class="support-row">
+          <p class="support-label">Yardıma mı ihtiyacınız var? Destek ekibimize ulaşın.</p>
+          <a href="mailto:destek@pilavustuask.com.tr" class="support-email">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            destek@pilavustuask.com.tr
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /.main-grid -->
+</div><!-- /.page-wrap -->
+
+<!-- Footer -->
+<footer>
+  <div class="ft-main">
+    <div>
+      <div class="ft-logo">
+        <span class="ft-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </span>
+        <span class="ft-name">Askıda Pilav</span>
+      </div>
+      <p class="ft-desc">Ankara'da öğrencilere sıcak yemek bağışı platformu. Bağışçılar ve ihtiyaç sahiplerini buluşturuyoruz.</p>
+    </div>
+    <div>
+      <div class="ft-links">
+        <a href="donate.html" class="ft-link">Bağış Yap</a>
+        <a href="student-register.html" class="ft-link">Öğrenci Kaydı</a>
+        <a href="index.html" class="ft-link">Ana Sayfa</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 pilavustuask.com.tr — Tüm hakları saklıdır.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── Supabase ── */
+  const SUPA_URL = 'https://svvjgqdyzjschuoxvsig.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+  const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+  /* ── Nav scroll ── */
+  const nav = document.getElementById('nav');
+  function updateNav() {
+    nav.classList.toggle('scrolled', window.scrollY >= 8);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  /* ── State ── */
+  let selectedMeal    = 'öğle';
+  let selectedUrgency = 'normal';
+
+  /* ── Meal tile selector ── */
+  document.querySelectorAll('.meal-tile').forEach(function (tile) {
+    function activate() {
+      document.querySelectorAll('.meal-tile').forEach(function (t) {
+        t.classList.remove('selected');
+        t.setAttribute('aria-pressed', 'false');
+      });
+      tile.classList.add('selected');
+      tile.setAttribute('aria-pressed', 'true');
+      selectedMeal = tile.getAttribute('data-val');
+    }
+    tile.addEventListener('click', activate);
+    tile.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+
+  /* ── Urgency tile selector ── */
+  document.querySelectorAll('.urgency-tile').forEach(function (tile) {
+    function activate() {
+      document.querySelectorAll('.urgency-tile').forEach(function (t) {
+        t.classList.remove('sel');
+        t.setAttribute('aria-checked', 'false');
+      });
+      tile.classList.add('sel');
+      tile.setAttribute('aria-checked', 'true');
+      selectedUrgency = tile.getAttribute('data-val');
+    }
+    tile.addEventListener('click', activate);
+    tile.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const item   = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('faq-open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('faq-open');
+        i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq-body').setAttribute('aria-hidden', 'true');
+      });
+
+      // Open if it was closed
+      if (!isOpen) {
+        item.classList.add('faq-open');
+        btn.setAttribute('aria-expanded', 'true');
+        item.querySelector('.faq-body').setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+
+  /* ── Reference code generator ── */
+  function genRef() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let ref = 'AP-';
+    for (let i = 0; i < 8; i++) ref += chars[Math.floor(Math.random() * chars.length)];
+    return ref;
+  }
+
+  /* ── Error helpers ── */
+  const errorEl   = document.getElementById('error-msg');
+  const errorText = document.getElementById('error-text');
+
+  function showError(msg) {
+    errorText.textContent = msg;
+    errorEl.classList.add('visible');
+    errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearError() {
+    errorEl.classList.remove('visible');
+  }
+
+  /* ── Form submit ── */
+  const submitBtn = document.getElementById('submit-btn');
+
+  submitBtn.addEventListener('click', handleSubmit);
+
+  async function handleSubmit() {
+    const fullName  = document.getElementById('input-name').value.trim();
+    const studentId = document.getElementById('input-student-id').value.trim();
+    const university = document.getElementById('input-university').value;
+    const email     = document.getElementById('input-email').value.trim().toLowerCase();
+    const notes     = document.getElementById('input-notes').value.trim();
+
+    if (!fullName) {
+      showError('Lütfen adınızı ve soyadınızı girin.');
+      return;
+    }
+    if (!university) {
+      showError('Lütfen üniversitenizi seçin.');
+      return;
+    }
+    if (!studentId) {
+      showError('Lütfen öğrenci numaranızı girin.');
+      return;
+    }
+    if (!email) {
+      showError('Lütfen e-posta adresinizi girin.');
+      return;
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      showError('Geçerli bir e-posta adresi girin.');
+      return;
+    }
+
+    clearError();
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="btn-spinner"></span>Gönderiliyor…';
+
+    try {
+      const { error } = await db.from('meal_requests').insert({
+        meal_type:  selectedMeal,
+        urgency:    selectedUrgency,
+        full_name:  fullName,
+        university: university,
+        student_id: studentId,
+        email:      email,
+        notes:      notes || null,
+        status:     'pending'
+      });
+
+      if (error) throw error;
+
+      // Show success
+      const refCode = genRef();
+      document.getElementById('success-ref-code').textContent = refCode;
+      document.getElementById('form-body').style.display = 'none';
+      const successEl = document.getElementById('success-screen');
+      successEl.style.display = 'block';
+      successEl.classList.add('visible');
+
+    } catch (err) {
+      console.error(err);
+      showError('Bir sorun oluştu: ' + (err.message || 'Lütfen tekrar deneyin.'));
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Talebi Gönder <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Paneli – Askıda Pilav</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:#ffffff; --off-white:#faf9f7; --bg:#f5f3ef; --bg-2:#f0ede7;
+      --border:#e8e4dc; --border-light:#f0ece4;
+      --text:#1a1814; --text-2:#6b6560; --text-3:#b0aa9f; --text-4:#d4cfc8;
+      --red:#c0392b; --red-d:#a93226; --red-light:#fdf3f2; --red-border:#f5cac7;
+      --gold:#9a7c4f; --gold-d:#8a6e41; --gold-light:#f9f5ee; --gold-border:rgba(154,124,79,0.25);
+      --green:#2d7a5f; --green-light:#edf7f3; --green-border:rgba(45,122,95,0.2);
+      --yellow:#b45309; --yellow-light:#fef3c7; --yellow-border:#fcd34d;
+      --r-xs:4px; --r-sm:6px; --r:10px; --r-lg:16px; --r-xl:24px; --r-2xl:32px;
+      --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+      --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+      --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+      --sh-red:0 12px 40px rgba(192,57,43,0.25);
+      --font-d:'DM Serif Display',Georgia,serif;
+      --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+      --sidebar-w:228px;
+    }
+
+    html { font-size: 14px; scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ═══════════════════════════════════════════════
+       LOGIN SCREEN
+    ═══════════════════════════════════════════════ */
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% -5%, rgba(192,57,43,0.13) 0%, transparent 70%),
+        linear-gradient(135deg, #f7f4f0 0%, #f0ece5 40%, #ede8e0 100%);
+      background-size: 200% 200%;
+      animation: gradShift 14s ease infinite;
+    }
+
+    .login-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-2xl);
+      box-shadow: var(--sh-xl);
+      padding: 52px 44px;
+      width: 100%;
+      max-width: 420px;
+      animation: fadeUp 0.55s var(--ease) both;
+    }
+
+    .login-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-bottom: 5px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--text);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 17px; height: 17px; color: #fff; }
+    .logo-name {
+      font-family: var(--font-d);
+      font-size: 23px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .login-subtitle {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto 28px;
+      width: 48px;
+      border-radius: 2px;
+    }
+
+    .field-group { margin-bottom: 16px; }
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 7px;
+      letter-spacing: 0.01em;
+    }
+    .field-input-wrap { position: relative; }
+    .field-input-wrap .field-prefix-icon {
+      position: absolute;
+      left: 13px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+      display: flex; align-items: center;
+    }
+    .field-input-wrap .field-prefix-icon svg { width: 15px; height: 15px; }
+    .field-input {
+      width: 100%;
+      padding: 11px 14px 11px 40px;
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-family: var(--font-b);
+      font-size: 13.5px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+    .field-input::placeholder { color: var(--text-4); }
+    .field-input:focus {
+      border-color: var(--red);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.09);
+    }
+    .field-pass-wrap .pass-toggle {
+      position: absolute;
+      right: 11px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      cursor: pointer;
+      color: var(--text-3);
+      padding: 4px;
+      border-radius: var(--r-xs);
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.15s;
+    }
+    .field-pass-wrap .pass-toggle:hover { color: var(--text); }
+    .field-pass-wrap .pass-toggle svg { width: 16px; height: 16px; }
+    .field-pass-wrap .field-input { padding-right: 42px; }
+
+    .login-error {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: var(--r);
+      font-size: 13px;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    .btn-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 20px;
+      margin-top: 22px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: var(--r);
+      font-family: var(--font-b);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background 0.18s var(--ease), box-shadow 0.18s var(--ease), transform 0.12s var(--ease);
+    }
+    .btn-login:hover {
+      background: var(--red-d);
+      box-shadow: var(--sh-red);
+      transform: translateY(-1px);
+    }
+    .btn-login:active { transform: translateY(0); }
+    .btn-login:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    .login-back {
+      display: block;
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12.5px;
+      color: var(--text-3);
+      transition: color 0.15s;
+    }
+    .login-back:hover { color: var(--red); }
+
+    /* ═══════════════════════════════════════════════
+       DASHBOARD LAYOUT
+    ═══════════════════════════════════════════════ */
+    #dashScreen {
+      display: none;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      height: 80px;
+      min-height: 80px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-logo-icon {
+      width: 32px; height: 32px;
+      background: var(--text);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sidebar-logo-icon svg { width: 15px; height: 15px; color: #fff; }
+    .sidebar-logo-name {
+      font-family: var(--font-d);
+      font-size: 16px;
+      color: var(--text);
+      flex: 1;
+      line-height: 1.2;
+    }
+    .sidebar-admin-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--r);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease);
+      border: none;
+      border-left: 2px solid transparent;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+    .sidebar-link svg { width: 15px; height: 15px; flex-shrink: 0; transition: transform 0.18s var(--ease); }
+    .sidebar-link:hover { color: var(--text); background: var(--bg); }
+    .sidebar-link:hover svg { transform: translateX(1px); }
+    .sidebar-link.active {
+      color: var(--red);
+      background: var(--red-light);
+      font-weight: 500;
+      border-left-color: var(--red);
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border);
+      padding: 12px 12px;
+    }
+    .sidebar-logout {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border-radius: var(--r);
+      font-size: 12.5px;
+      color: var(--text-3);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-b);
+    }
+    .sidebar-logout:hover { color: var(--red); background: var(--red-light); }
+    .sidebar-logout svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── MAIN AREA ── */
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .main-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 60px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    #headerTitle {
+      font-family: var(--font-d);
+      font-size: 19px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulseGlow 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .header-live-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .header-date {
+      font-size: 11.5px;
+      color: var(--text-3);
+      border-left: 1px solid var(--border);
+      padding-left: 10px;
+      margin-left: 2px;
+    }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px;
+    }
+    .content-inner {
+      max-width: 1200px;
+    }
+
+    /* ── TAB PANES ── */
+    .tab-pane { display: none; }
+
+    /* ═══════════════════════════════════════════════
+       OVERVIEW TAB
+    ═══════════════════════════════════════════════ */
+    .welcome-block { margin-bottom: 26px; }
+    .welcome-block h1 {
+      font-family: var(--font-d);
+      font-size: 26px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .welcome-block p {
+      font-size: 13px;
+      color: var(--text-2);
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 24px;
+      box-shadow: var(--sh);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+    }
+    .stat-card:hover { box-shadow: var(--sh-lg); transform: translateY(-2px); }
+    .stat-card-left { flex: 1; min-width: 0; }
+    .stat-card-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--r-lg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .stat-card-icon svg { width: 20px; height: 20px; }
+    .stat-card-icon.green { background: var(--green-light); color: var(--green); }
+    .stat-card-icon.red   { background: var(--red-light);   color: var(--red); }
+    .stat-card-icon.gold  { background: var(--gold-light);  color: var(--gold); }
+    .stat-card-icon.yellow{ background: var(--yellow-light);color: var(--yellow); }
+
+    .stat-num {
+      font-family: var(--font-d);
+      font-size: 34px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.025em;
+      animation: countUp 0.4s var(--ease) both;
+    }
+    .stat-lbl {
+      font-size: 11.5px;
+      color: var(--text-3);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* ACTIVITY ROW */
+    .activity-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 860px) { .activity-row { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════════════════════════
+       TABLE CARD
+    ═══════════════════════════════════════════════ */
+    .table-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+    .table-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .table-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .table-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 11px 18px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.14s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:nth-child(even) { background: var(--off-white); }
+    tbody tr:hover { background: var(--bg-2) !important; }
+    tbody td {
+      padding: 13px 18px;
+      font-size: 13px;
+      color: var(--text-2);
+      vertical-align: middle;
+    }
+    .td-strong { font-weight: 600; color: var(--text); }
+
+    /* ═══════════════════════════════════════════════
+       BADGES
+    ═══════════════════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      border: 1px solid;
+    }
+    /* status */
+    .badge-pending   { background: var(--yellow-light); color: var(--yellow); border-color: var(--yellow-border); }
+    .badge-approved  { background: var(--green-light);  color: var(--green);  border-color: var(--green-border); }
+    .badge-completed { background: var(--green-light);  color: var(--green);  border-color: var(--green-border); }
+    .badge-rejected  { background: var(--red-light);    color: var(--red);    border-color: var(--red-border); }
+    .badge-gray      { background: var(--bg);           color: var(--text-3); border-color: var(--border); }
+    /* urgency */
+    .badge-urg-normal{ background: var(--green-light);  color: var(--green);  border-color: var(--green-border); }
+    .badge-urg-orta  { background: var(--yellow-light); color: var(--yellow); border-color: var(--yellow-border); }
+    .badge-urg-acil  { background: var(--red-light);    color: var(--red);    border-color: var(--red-border); }
+
+    /* ═══════════════════════════════════════════════
+       FILTER ROW
+    ═══════════════════════════════════════════════ */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 340px;
+    }
+    .filter-search-wrap .search-icon {
+      position: absolute;
+      left: 12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+      display: flex; align-items: center;
+    }
+    .filter-search-wrap .search-icon svg { width: 14px; height: 14px; }
+    .filter-search {
+      width: 100%;
+      padding: 9px 14px 9px 36px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-family: var(--font-b);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .filter-search::placeholder { color: var(--text-4); }
+    .filter-search:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,0.08); }
+    .filter-select {
+      padding: 9px 32px 9px 12px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-family: var(--font-b);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b0aa9f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition: border-color 0.15s;
+    }
+    .filter-select:focus { border-color: var(--red); }
+
+    /* ═══════════════════════════════════════════════
+       ACTION BUTTONS
+    ═══════════════════════════════════════════════ */
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-b);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+      border: 1.5px solid;
+      letter-spacing: 0.02em;
+    }
+    .action-approve {
+      background: var(--green-light);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+    .action-approve:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .action-reject {
+      background: transparent;
+      border-color: var(--red-border);
+      color: var(--red);
+    }
+    .action-reject:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+    /* ═══════════════════════════════════════════════
+       QR TAB
+    ═══════════════════════════════════════════════ */
+    .qr-panel { max-width: 520px; }
+    .qr-panel h2 {
+      font-family: var(--font-d);
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .qr-panel > p {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+    .qr-input-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    #qrTokenInput {
+      flex: 1;
+      padding: 11px 14px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    #qrTokenInput:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,0.08); }
+    #qrTokenInput::placeholder { color: var(--text-4); font-family: var(--font-b); }
+    .btn-verify {
+      padding: 11px 22px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-b);
+      font-size: 13.5px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+      white-space: nowrap;
+    }
+    .btn-verify:hover { background: var(--red-d); box-shadow: var(--sh-red); transform: translateY(-1px); }
+    .btn-verify:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .qr-result-valid {
+      padding: 22px 26px;
+      background: var(--green-light);
+      border: 1px solid var(--green-border);
+      border-radius: var(--r-xl);
+      font-size: 13.5px;
+      color: var(--green);
+      line-height: 1.65;
+    }
+    .qr-result-valid strong { font-size: 15px; display: block; margin-bottom: 4px; }
+    .qr-result-valid small { color: var(--text-3); font-size: 11px; }
+    .qr-result-invalid {
+      padding: 22px 26px;
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: var(--r-xl);
+      font-size: 13.5px;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MOBILE BOTTOM NAV
+    ═══════════════════════════════════════════════ */
+    .bottom-nav { display: none; }
+
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: var(--white);
+        border-top: 1px solid var(--border);
+        z-index: 100;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .mobile-nav-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 10px 4px 12px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 9.5px;
+        font-weight: 600;
+        color: var(--text-3);
+        font-family: var(--font-b);
+        transition: color 0.15s;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .mobile-nav-btn svg { width: 20px; height: 20px; }
+      .mobile-nav-btn.active { color: var(--red); }
+      .main-content { padding-bottom: 88px; }
+    }
+    @media (max-width: 480px) {
+      .login-card { padding: 40px 28px; }
+      .qr-input-row { flex-direction: column; }
+      .activity-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo-row">
+      <div class="logo-icon">
+        <!-- arrow / share icon suggesting giving -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+          <path d="M5 19h14" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="logo-name">Askıda Pilav</span>
+    </div>
+    <div class="login-subtitle">Admin Paneli</div>
+    <div class="login-divider"></div>
+
+    <div class="field-group">
+      <label class="field-label" for="loginEmail">E-posta</label>
+      <div class="field-input-wrap">
+        <span class="field-prefix-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+        </span>
+        <input class="field-input" type="email" id="loginEmail" placeholder="admin@askidapilav.com" autocomplete="email" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="loginPass">Şifre</label>
+      <div class="field-input-wrap field-pass-wrap">
+        <span class="field-prefix-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <input class="field-input" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
+        <button class="pass-toggle" type="button" id="passToggleBtn" title="Şifreyi göster/gizle" onclick="togglePassword()">
+          <!-- eye icon (show) -->
+          <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <!-- eye-off icon (hide) -->
+          <svg id="eyeHide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20C5 20 1 12 1 12a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="login-error" id="loginErr">E-posta veya şifre hatalı.</div>
+    <button class="btn-login" id="loginBtn" onclick="login()">Giriş Yap</button>
+    <a href="../index.html" class="login-back">← Ana sayfaya dön</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DASHBOARD
+═══════════════════════════════════════════════ -->
+<div id="dashScreen">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+          <path d="M5 19h14" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="sidebar-logo-name">Askıda Pilav</span>
+      <span class="sidebar-admin-badge">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="sidebar-link active" data-tab="overview" onclick="switchTab(this.dataset.tab)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        Genel Bakış
+      </button>
+
+      <button class="sidebar-link" data-tab="students" onclick="switchTab(this.dataset.tab)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Öğrenciler
+      </button>
+
+      <button class="sidebar-link" data-tab="donations" onclick="switchTab(this.dataset.tab)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        Bağışlar
+      </button>
+
+      <button class="sidebar-link" data-tab="requests" onclick="switchTab(this.dataset.tab)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Talepler
+      </button>
+
+      <button class="sidebar-link" data-tab="qr" onclick="switchTab(this.dataset.tab)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="6" height="6" rx="0.5"/>
+          <rect x="15" y="3" width="6" height="6" rx="0.5"/>
+          <rect x="3" y="15" width="6" height="6" rx="0.5"/>
+          <path d="M15 15h2v2h-2zm2 2h2v2h-2zm0-4h4v2"/>
+          <path d="M21 21h-2v-2"/>
+        </svg>
+        QR Tarayıcı
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="sidebar-logout" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Çıkış Yap
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <main class="main-area">
+    <!-- HEADER -->
+    <div class="main-header">
+      <span id="headerTitle">Genel Bakış</span>
+      <div class="header-right">
+        <span class="live-dot"></span>
+        <span class="header-live-text">Canlı</span>
+        <span class="header-date" id="headerDate"></span>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="main-content">
+      <div class="content-inner">
+
+        <!-- ── TAB: GENEL BAKIŞ ── -->
+        <div class="tab-pane" id="tabOverview">
+          <div class="welcome-block">
+            <h1>Merhaba, Admin</h1>
+            <p>Askıda Pilav platformuna hoş geldiniz. Aşağıda güncel verilere genel bir bakış sunulmaktadır.</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-left">
+                <div class="stat-num" id="statStudentCount">—</div>
+                <div class="stat-lbl">Kayıtlı Öğrenciler</div>
+              </div>
+              <div class="stat-card-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-left">
+                <div class="stat-num" id="statTotalAmount">—</div>
+                <div class="stat-lbl">Toplam Bağış</div>
+              </div>
+              <div class="stat-card-icon red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-left">
+                <div class="stat-num" id="statMealsCount">—</div>
+                <div class="stat-lbl">Dağıtılan Yemek</div>
+              </div>
+              <div class="stat-card-icon gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                  <path d="M7 2v20"/>
+                  <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-left">
+                <div class="stat-num" id="statPendingCount">—</div>
+                <div class="stat-lbl">Bekleyen Talep</div>
+              </div>
+              <div class="stat-card-icon yellow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="activity-row">
+            <div class="table-card">
+              <div class="table-card-header">
+                <span class="table-card-title">Son Bağışlar</span>
+                <span class="table-pill">En son 5</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Bağışçı</th>
+                      <th>Yemek</th>
+                      <th>Tutar</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentDonTbody">
+                    <tr><td colspan="3" style="text-align:center;color:var(--text-3);padding:24px">Yükleniyor…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="table-card-header">
+                <span class="table-card-title">Son Öğrenci Kayıtları</span>
+                <span class="table-pill">En son 5</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentStuTbody">
+                    <tr><td colspan="2" style="text-align:center;color:var(--text-3);padding:24px">Yükleniyor…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: ÖĞRENCİLER ── -->
+        <div class="tab-pane" id="tabStudents">
+          <div class="filter-row">
+            <div class="filter-search-wrap">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </span>
+              <input class="filter-search" type="text" id="studentSearch" placeholder="İsim veya öğrenci no ara…" oninput="filterStudents()" />
+            </div>
+            <select class="filter-select" id="studentStatusFilter" onchange="filterStudents()">
+              <option value="">Tüm Durumlar</option>
+              <option value="pending">Bekleyen</option>
+              <option value="approved">Onaylı</option>
+              <option value="rejected">Reddedilmiş</option>
+            </select>
+          </div>
+          <div class="table-card">
+            <div class="table-card-header">
+              <span class="table-card-title">Öğrenci Listesi</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ad Soyad</th>
+                    <th>Üniversite</th>
+                    <th>Öğrenci No</th>
+                    <th>Durum</th>
+                    <th>Eylemler</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsTbody">
+                  <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: BAĞIŞLAR ── -->
+        <div class="tab-pane" id="tabDonations">
+          <div class="table-card">
+            <div class="table-card-header">
+              <span class="table-card-title">Bağış Listesi</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bağışçı</th>
+                    <th>Yemek Sayısı</th>
+                    <th>Tutar</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="donationsTbody">
+                  <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: TALEPLER ── -->
+        <div class="tab-pane" id="tabRequests">
+          <div class="table-card">
+            <div class="table-card-header">
+              <span class="table-card-title">Talep Listesi</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Öğrenci</th>
+                    <th>Öğün</th>
+                    <th>Aciliyet</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="requestsTbody">
+                  <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: QR TARAYICI ── -->
+        <div class="tab-pane" id="tabQr">
+          <div class="qr-panel">
+            <h2>QR Tarayıcı</h2>
+            <p>QR koddan okunan token değerini girin. Geçerli tokenler işaretlenecek ve bir kez kullanılmış sayılacaktır.</p>
+            <div class="qr-input-row">
+              <input id="qrTokenInput" type="text" placeholder="TOKEN-XXXXXXXX" autocomplete="off" />
+              <button class="btn-verify" onclick="verifyQR()">Doğrula</button>
+            </div>
+            <div id="qrResult"></div>
+          </div>
+        </div>
+
+      </div><!-- /content-inner -->
+    </div><!-- /main-content -->
+  </main>
+</div><!-- /dashScreen -->
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="mobile-nav-btn active" data-tab="overview" onclick="switchTab(this.dataset.tab)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </svg>
+    Genel
+  </button>
+  <button class="mobile-nav-btn" data-tab="students" onclick="switchTab(this.dataset.tab)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+    </svg>
+    Öğrenciler
+  </button>
+  <button class="mobile-nav-btn" data-tab="donations" onclick="switchTab(this.dataset.tab)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    Bağışlar
+  </button>
+  <button class="mobile-nav-btn" data-tab="requests" onclick="switchTab(this.dataset.tab)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    Talepler
+  </button>
+  <button class="mobile-nav-btn" data-tab="qr" onclick="switchTab(this.dataset.tab)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="6" height="6" rx="0.5"/>
+      <rect x="15" y="3" width="6" height="6" rx="0.5"/>
+      <rect x="3" y="15" width="6" height="6" rx="0.5"/>
+      <path d="M15 15h2v2h-2zm2 2h2v2h-2zm0-4h4v2"/><path d="M21 21h-2v-2"/>
+    </svg>
+    QR
+  </button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  /* ═══════════════════════════════════════════════
+     SUPABASE
+  ═══════════════════════════════════════════════ */
+  const SUPA_URL = 'https://svvjgqdyzjschuoxvsig.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+  const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+  const ADMIN_EMAIL = 'admin@askidapilav.com';
+  const ADMIN_PASS  = 'admin2024';
+
+  let activeTab = 'overview';
+  let _allStudents = [];
+
+  /* ── Header date ── */
+  (function() {
+    const d = new Date();
+    const opts = { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' };
+    const el = document.getElementById('headerDate');
+    if (el) el.textContent = d.toLocaleDateString('tr-TR', opts);
+  })();
+
+  /* ═══════════════════════════════════════════════
+     AUTH
+  ═══════════════════════════════════════════════ */
+  function login() {
+    const email  = document.getElementById('loginEmail').value.trim();
+    const pass   = document.getElementById('loginPass').value;
+    const errEl  = document.getElementById('loginErr');
+    const btn    = document.getElementById('loginBtn');
+
+    errEl.style.display = 'none';
+
+    if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-spinner"></span> Giriş yapılıyor…';
+      setTimeout(() => {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashScreen').style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'Giriş Yap';
+        loadOverview();
+      }, 420);
+    } else {
+      errEl.textContent = 'E-posta veya şifre hatalı.';
+      errEl.style.display = 'block';
+    }
+  }
+
+  function logout() {
+    document.getElementById('dashScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginErr').style.display = 'none';
+  }
+
+  function togglePassword() {
+    const input  = document.getElementById('loginPass');
+    const show   = document.getElementById('eyeShow');
+    const hide   = document.getElementById('eyeHide');
+    if (input.type === 'password') {
+      input.type  = 'text';
+      show.style.display = 'none';
+      hide.style.display = 'block';
+    } else {
+      input.type  = 'password';
+      show.style.display = 'block';
+      hide.style.display = 'none';
+    }
+  }
+
+  document.getElementById('loginPass').addEventListener('keydown',  e => { if (e.key === 'Enter') login(); });
+  document.getElementById('loginEmail').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+  /* ═══════════════════════════════════════════════
+     NAVIGATION
+  ═══════════════════════════════════════════════ */
+  const TAB_TITLES = {
+    overview:  'Genel Bakış',
+    students:  'Öğrenciler',
+    donations: 'Bağışlar',
+    requests:  'Talepler',
+    qr:        'QR Tarayıcı',
+  };
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function switchTab(name) {
+    activeTab = name;
+
+    document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+    const pane = document.getElementById('tab' + capitalize(name));
+    if (pane) pane.style.display = 'block';
+
+    document.querySelectorAll('.sidebar-link').forEach(l => {
+      l.classList.toggle('active', l.dataset.tab === name);
+    });
+    document.querySelectorAll('.mobile-nav-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === name);
+    });
+
+    const titleEl = document.getElementById('headerTitle');
+    if (titleEl) titleEl.textContent = TAB_TITLES[name] || '';
+
+    if      (name === 'overview')  loadOverview();
+    else if (name === 'students')  loadStudents();
+    else if (name === 'donations') loadDonations();
+    else if (name === 'requests')  loadRequests();
+  }
+
+  /* ── show first tab on load ── */
+  document.getElementById('tabOverview').style.display = 'block';
+
+  /* ═══════════════════════════════════════════════
+     COUNT-UP ANIMATION
+  ═══════════════════════════════════════════════ */
+  function animateCount(el, target, isString) {
+    if (isString) { el.textContent = target; return; }
+    const dur = 700, step = 16;
+    const numericTarget = parseFloat(String(target).replace(/[^0-9.]/g, ''));
+    if (isNaN(numericTarget)) { el.textContent = target; return; }
+    const prefix = String(target).match(/^[^\d]*/)[0];
+    const suffix = String(target).match(/[^\d,\.]*$/)[0];
+    let start = 0, startTime = null;
+    function tick(ts) {
+      if (!startTime) startTime = ts;
+      const pct = Math.min((ts - startTime) / dur, 1);
+      const ease = 1 - Math.pow(1 - pct, 3);
+      const val  = Math.round(ease * numericTarget);
+      el.textContent = prefix + val.toLocaleString('tr-TR') + suffix;
+      if (pct < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ═══════════════════════════════════════════════
+     OVERVIEW
+  ═══════════════════════════════════════════════ */
+  async function loadOverview() {
+    try {
+      const [studRes, donRes, reqRes] = await Promise.all([
+        db.from('students').select('id, status, created_at', { count: 'exact' }),
+        db.from('donations').select('id, amount, meal_count, donor_name, created_at'),
+        db.from('meal_requests').select('id, status, full_name, university, meal_type, created_at'),
+      ]);
+      const students  = studRes.data  || [];
+      const donations = donRes.data   || [];
+      const requests  = reqRes.data   || [];
+
+      const pending     = requests.filter(r => r.status === 'pending').length;
+      const totalMeals  = donations.reduce((s, d) => s + (d.meal_count || 0), 0);
+      const totalAmount = donations.reduce((s, d) => s + (d.amount || 0), 0);
+
+      animateCount(document.getElementById('statStudentCount'), students.length);
+      animateCount(document.getElementById('statTotalAmount'),  '₺' + totalAmount.toLocaleString('tr-TR'), true);
+      animateCount(document.getElementById('statMealsCount'),   totalMeals);
+      animateCount(document.getElementById('statPendingCount'), pending);
+
+      /* Recent donations */
+      const recent = [...donations].sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 5);
+      const donTbody = document.getElementById('recentDonTbody');
+      if (donTbody) {
+        donTbody.innerHTML = recent.length
+          ? recent.map(d => `<tr>
+              <td class="td-strong">${esc(d.donor_name || '—')}</td>
+              <td>${d.meal_count} yemek</td>
+              <td style="font-weight:600;color:var(--text)">₺${(d.amount||0).toLocaleString('tr-TR')}</td>
+            </tr>`).join('')
+          : '<tr><td colspan="3" style="text-align:center;color:var(--text-3);padding:20px">Kayıt yok</td></tr>';
+      }
+
+      /* Recent students */
+      const recentStu = [...students].sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 5);
+      const stuTbody  = document.getElementById('recentStuTbody');
+      if (stuTbody) {
+        stuTbody.innerHTML = recentStu.length
+          ? recentStu.map(s => `<tr>
+              <td style="font-size:11px;color:var(--text-3);font-family:'Courier New',monospace">${esc(s.id)}</td>
+              <td><span class="badge badge-${s.status||'gray'}">${s.status||'—'}</span></td>
+            </tr>`).join('')
+          : '<tr><td colspan="2" style="text-align:center;color:var(--text-3);padding:20px">Kayıt yok</td></tr>';
+      }
+    } catch(e) { console.error(e); }
+  }
+
+  /* ═══════════════════════════════════════════════
+     STUDENTS
+  ═══════════════════════════════════════════════ */
+  async function loadStudents() {
+    const tbody = document.getElementById('studentsTbody');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>';
+    try {
+      const { data, error } = await db.from('students').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      _allStudents = data || [];
+      renderStudents(_allStudents);
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Hata: ${esc(e.message)}</td></tr>`;
+    }
+  }
+
+  function renderStudents(list) {
+    const tbody = document.getElementById('studentsTbody');
+    if (!tbody) return;
+    tbody.innerHTML = list.length
+      ? list.map(s => `
+          <tr>
+            <td><strong>${esc((s.first_name||'') + ' ' + (s.last_name||''))}</strong></td>
+            <td>${esc(s.university || '—')}</td>
+            <td style="font-family:'Courier New',monospace;font-size:12px">${esc(s.student_id || '—')}</td>
+            <td><span class="badge badge-${s.status||'gray'}">${esc(s.status||'—')}</span></td>
+            <td>${s.status === 'pending'
+              ? `<button onclick="approveStudent('${esc(s.id)}')" class="action-btn action-approve">Onayla</button>
+                 <button onclick="rejectStudent('${esc(s.id)}')"  class="action-btn action-reject" style="margin-left:6px">Reddet</button>`
+              : '—'
+            }</td>
+          </tr>`).join('')
+      : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Kayıt yok</td></tr>';
+  }
+
+  function filterStudents() {
+    const q      = document.getElementById('studentSearch').value.toLowerCase();
+    const status = document.getElementById('studentStatusFilter').value;
+    const filtered = _allStudents.filter(s => {
+      const name = ((s.first_name||'') + ' ' + (s.last_name||'')).toLowerCase();
+      const sid  = (s.student_id || '').toLowerCase();
+      const matchText   = !q || name.includes(q) || sid.includes(q);
+      const matchStatus = !status || s.status === status;
+      return matchText && matchStatus;
+    });
+    renderStudents(filtered);
+  }
+
+  async function approveStudent(id) {
+    await db.from('students').update({ status: 'approved' }).eq('id', id);
+    loadStudents();
+  }
+  async function rejectStudent(id) {
+    await db.from('students').update({ status: 'rejected' }).eq('id', id);
+    loadStudents();
+  }
+
+  /* ═══════════════════════════════════════════════
+     DONATIONS
+  ═══════════════════════════════════════════════ */
+  async function loadDonations() {
+    const tbody = document.getElementById('donationsTbody');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>';
+    try {
+      const { data, error } = await db.from('donations').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      tbody.innerHTML = (data||[]).length
+        ? (data||[]).map(d => `
+            <tr>
+              <td><strong>${esc(d.donor_name || '—')}</strong></td>
+              <td>${d.meal_count} yemek</td>
+              <td style="font-weight:600;color:var(--text)">₺${(d.amount||0).toLocaleString('tr-TR')}</td>
+              <td>${new Date(d.created_at).toLocaleDateString('tr-TR')}</td>
+              <td><span class="badge badge-${d.status||'completed'}">${esc(d.status||'—')}</span></td>
+            </tr>`).join('')
+        : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Kayıt yok</td></tr>';
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Hata: ${esc(e.message)}</td></tr>`;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════
+     REQUESTS
+  ═══════════════════════════════════════════════ */
+  async function loadRequests() {
+    const tbody = document.getElementById('requestsTbody');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Yükleniyor…</td></tr>';
+    try {
+      const { data, error } = await db.from('meal_requests').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      tbody.innerHTML = (data||[]).length
+        ? (data||[]).map(r => `
+            <tr>
+              <td>
+                <strong>${esc(r.full_name || '—')}</strong>
+                <br><small style="color:var(--text-3)">${esc(r.university||'')}</small>
+              </td>
+              <td>${esc(r.meal_type || '—')}</td>
+              <td><span class="badge badge-urg-${r.urgency||'normal'}">${esc(r.urgency||'normal')}</span></td>
+              <td>${new Date(r.created_at).toLocaleDateString('tr-TR')}</td>
+              <td><span class="badge badge-${r.status||'pending'}">${esc(r.status||'—')}</span></td>
+            </tr>`).join('')
+        : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-3)">Kayıt yok</td></tr>';
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Hata: ${esc(e.message)}</td></tr>`;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════
+     QR VERIFY
+  ═══════════════════════════════════════════════ */
+  async function verifyQR() {
+    const token    = document.getElementById('qrTokenInput').value.trim();
+    const resultEl = document.getElementById('qrResult');
+    if (!token) {
+      resultEl.innerHTML = '<p style="color:var(--red)">Token girin.</p>';
+      return;
+    }
+    resultEl.innerHTML = '<p style="color:var(--text-3)">Doğrulanıyor…</p>';
+    try {
+      const { data, error } = await db
+        .from('qr_tokens')
+        .select('*, students(first_name,last_name,university)')
+        .eq('token', token)
+        .maybeSingle();
+      if (error) throw error;
+      if (!data) {
+        resultEl.innerHTML = '<div class="qr-result-invalid">Token geçersiz veya bulunamadı.</div>';
+        return;
+      }
+      const expired = new Date(data.expires_at) < new Date();
+      const used    = data.used;
+      if (used) {
+        resultEl.innerHTML = '<div class="qr-result-invalid">Bu QR kodu zaten kullanıldı.</div>';
+      } else if (expired) {
+        resultEl.innerHTML = '<div class="qr-result-invalid">Bu QR kodunun süresi dolmuş.</div>';
+      } else {
+        const stu = data.students || {};
+        resultEl.innerHTML = `<div class="qr-result-valid">
+          <strong>${esc((stu.first_name||'') + ' ' + (stu.last_name||''))}</strong>
+          ${esc(stu.university||'')}
+          <br><small>${esc(token)}</small>
+        </div>`;
+        await db.from('qr_tokens').update({ used: true }).eq('id', data.id);
+      }
+    } catch(e) {
+      resultEl.innerHTML = `<div class="qr-result-invalid">Hata: ${esc(e.message)}</div>`;
+    }
+  }
+
+  document.getElementById('qrTokenInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') verifyQR();
+  });
+
+  /* ═══════════════════════════════════════════════
+     HELPERS
+  ═══════════════════════════════════════════════ */
+  function esc(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+</script>
+</body>
+</html>

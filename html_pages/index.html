@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Askıda Pilav — Ankara'nın Tek Öğrenci Yemek Bağış Platformu</title>
+<meta name="description" content="Ankara'daki üniversite öğrencilerine sıcak yemek bağışlayın. 13 üniversite, QR doğrulama, tam şeffaflık. pilavustuask.com güvencesiyle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --off-white:#faf9f7;
+  --bg:#f5f3ef;
+  --bg-2:#f0ede7;
+  --surface:#ffffff;
+  --border:#e8e4dc;
+  --border-light:#f0ece4;
+  --text:#1a1814;
+  --text-2:#6b6560;
+  --text-3:#b0aa9f;
+  --text-4:#d4cfc8;
+  --red:#c0392b;
+  --red-d:#a93226;
+  --red-dd:#8e2219;
+  --red-light:#fdf3f2;
+  --red-border:#f5cac7;
+  --gold:#9a7c4f;
+  --gold-d:#8a6e41;
+  --gold-light:#f9f5ee;
+  --gold-border:rgba(154,124,79,0.25);
+  --green:#2d7a5f;
+  --green-light:#edf7f3;
+  --r-xs:4px;
+  --r-sm:6px;
+  --r:10px;
+  --r-lg:16px;
+  --r-xl:24px;
+  --r-2xl:32px;
+  --sh-xs:0 1px 3px rgba(26,24,20,0.05);
+  --sh-sm:0 2px 8px rgba(26,24,20,0.06),0 1px 3px rgba(26,24,20,0.04);
+  --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+  --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+  --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+  --sh-red:0 12px 40px rgba(192,57,43,0.25);
+  --font-d:'DM Serif Display',Georgia,serif;
+  --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-out:cubic-bezier(0.0,0.0,0.2,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+html{scroll-behavior:smooth;font-size:16px;text-rendering:optimizeLegibility}
+body{background:var(--off-white);color:var(--text);font-family:var(--font-b);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--red-light);color:var(--red)}
+
+/* ═══════ ANNOUNCE ═══════ */
+.announce{background:var(--text);color:rgba(255,255,255,0.65);text-align:center;padding:10px 20px;font-size:11.5px;letter-spacing:0.025em;position:relative;overflow:hidden}
+.announce-inner{display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.announce-pill{display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2.5px 9px;border-radius:100px}
+.announce-pill-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:fadepulse 2s ease infinite}
+@keyframes fadepulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.announce-sep{color:rgba(255,255,255,0.2)}
+.announce strong{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ═══════ NAV ═══════ */
+.nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow 0.3s,border-color 0.3s}
+.nav.at-top{border-color:transparent;background:rgba(255,255,255,0.98)}
+.nav.scrolled{box-shadow:var(--sh);border-color:var(--border)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 32px;height:66px;display:flex;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:auto}
+.nav-logo-icon{width:34px;height:34px;background:var(--text);border-radius:9px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;flex-shrink:0}
+.nav-logo-icon:hover{background:var(--red)}
+.nav-logo-icon svg{width:16px;height:16px;color:#fff}
+.nav-logo-text{}
+.nav-logo-name{font-family:var(--font-d);font-size:18.5px;color:var(--text);display:block;line-height:1.1;letter-spacing:-0.01em}
+.nav-logo-sub{font-size:9.5px;color:var(--text-3);letter-spacing:0.04em;font-weight:400}
+.nav-links{display:none;align-items:center;gap:2px;margin:0 24px}
+.nav-links a{font-size:13.5px;font-weight:400;color:var(--text-2);padding:8px 13px;border-radius:var(--r-sm);transition:color 0.15s,background 0.15s;white-space:nowrap}
+.nav-links a:hover{color:var(--text);background:var(--bg)}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;background:var(--red);color:#fff;font-size:13.5px;font-weight:500;padding:10px 22px;border-radius:var(--r);transition:all 0.2s var(--ease);white-space:nowrap;position:relative;overflow:hidden;letter-spacing:-0.01em}
+.nav-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent 60%);pointer-events:none}
+.nav-cta:hover{background:var(--red-d);transform:translateY(-1px);box-shadow:var(--sh-red)}
+.hamburger{display:flex;flex-direction:column;gap:4.5px;background:none;border:1px solid var(--border);width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;border-radius:var(--r-sm);margin-left:10px;transition:border-color 0.2s}
+.hamburger:hover{border-color:var(--text-3)}
+.hamburger span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:1px;transition:all 0.25s}
+@media(min-width:900px){.nav-links{display:flex}.hamburger{display:none}}
+
+/* ═══════ DRAWER ═══════ */
+.drawer{position:fixed;inset:0;z-index:1000;display:grid;grid-template-rows:66px 1fr auto;background:#fff;transform:translateX(100%);transition:transform 0.38s var(--ease)}
+.drawer.open{transform:none}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border)}
+.drawer-close{background:none;border:1px solid var(--border);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-2);font-size:14px;transition:all 0.2s}
+.drawer-close:hover{color:var(--text);border-color:var(--text-3)}
+.drawer-links{display:flex;flex-direction:column;padding:8px}
+.drawer-links a{display:flex;align-items:center;justify-content:space-between;font-size:17px;color:var(--text-2);padding:16px 16px;border-radius:var(--r);transition:all 0.15s}
+.drawer-links a:hover{color:var(--text);background:var(--bg)}
+.drawer-links a::after{content:'→';font-size:14px;color:var(--text-4)}
+.drawer-foot{padding:20px 16px;border-top:1px solid var(--border)}
+
+/* ═══════ BUTTONS ═══════ */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-b);cursor:pointer;transition:all 0.2s var(--ease);border:none;white-space:nowrap;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent 60%);pointer-events:none;opacity:0;transition:opacity 0.2s}
+.btn:hover::before{opacity:1}
+.btn-red{background:var(--red);color:#fff;font-size:15px;font-weight:500;padding:15px 32px;border-radius:var(--r);letter-spacing:-0.01em}
+.btn-red:hover{background:var(--red-d);transform:translateY(-2px);box-shadow:var(--sh-red)}
+.btn-red:active{transform:translateY(0)}
+.btn-red-lg{font-size:16.5px;padding:17px 40px;border-radius:var(--r-lg)}
+.btn-ghost{background:transparent;color:var(--text);font-size:15px;font-weight:400;padding:14px 26px;border-radius:var(--r);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--text-3);background:var(--white);transform:translateY(-1px)}
+.btn-dark{background:var(--text);color:#fff;font-size:15px;font-weight:500;padding:15px 32px;border-radius:var(--r)}
+.btn-dark:hover{background:#2d2820;transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,24,20,0.25)}
+.btn-outline-white{background:transparent;color:rgba(255,255,255,0.8);font-size:14.5px;font-weight:400;padding:14px 26px;border-radius:var(--r);border:1.5px solid rgba(255,255,255,0.2)}
+.btn-outline-white:hover{color:#fff;border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.06)}
+.btn-white{background:#fff;color:var(--text);font-size:15px;font-weight:600;padding:15px 32px;border-radius:var(--r)}
+.btn-white:hover{background:var(--off-white);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.18)}
+.arrow-icon{width:14px;height:14px;flex-shrink:0;transition:transform 0.2s var(--ease)}
+.btn:hover .arrow-icon{transform:translateX(3px)}
+
+/* ═══════ SECTION UTILITIES ═══════ */
+.section{padding:108px 32px}
+.w{max-width:1280px;margin:0 auto}
+.section-tag{font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-tag::before{content:'';display:block;width:20px;height:1.5px;background:var(--red);flex-shrink:0;border-radius:1px}
+.section-title{font-family:var(--font-d);font-size:clamp(32px,3.8vw,52px);line-height:1.1;letter-spacing:-0.025em;color:var(--text);margin-bottom:16px}
+.section-title em{font-style:italic;color:var(--red)}
+.section-desc{font-size:16px;color:var(--text-2);line-height:1.82;font-weight:300;max-width:520px}
+.hdr{margin-bottom:68px}
+@media(max-width:640px){
+  .section{padding:72px 20px}
+  .section-title{font-size:clamp(28px,8vw,40px)}
+}
+
+/* ═══════ HERO ═══════ */
+.hero{background:var(--white);border-bottom:1px solid var(--border);overflow:hidden;position:relative}
+/* warm grain texture overlay */
+.hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-repeat:repeat;pointer-events:none;z-index:0;opacity:0.6}
+.hero-orb-1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,0.055) 0%,transparent 68%);top:-200px;right:-160px;pointer-events:none;z-index:0}
+.hero-orb-2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(154,124,79,0.045) 0%,transparent 65%);bottom:-100px;left:-80px;pointer-events:none;z-index:0}
+.hero-grid{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:88px 32px 108px;display:grid;gap:72px;align-items:center}
+@media(min-width:800px){.hero-grid{grid-template-columns:1fr 440px;padding:108px 32px 128px}}
+@media(min-width:1100px){.hero-grid{grid-template-columns:1fr 500px;gap:88px}}
+@media(max-width:640px){.hero-grid{padding:64px 20px 80px;gap:52px}}
+
+/* hero left */
+.hero-exclusive{display:inline-flex;align-items:center;gap:0;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:100px;padding:3px;margin-bottom:28px;overflow:hidden}
+.hero-exclusive-tag{background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 11px;border-radius:100px;white-space:nowrap;margin-right:6px}
+.hero-exclusive-txt{font-size:11.5px;color:var(--gold-d);font-weight:500;padding-right:10px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--red);margin-bottom:22px;letter-spacing:0.01em}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:livepulse 1.8s ease infinite;flex-shrink:0}
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.4)}60%{box-shadow:0 0 0 6px rgba(192,57,43,0)}}
+.hero-title{font-family:var(--font-d);font-size:clamp(48px,5.8vw,76px);line-height:1.04;letter-spacing:-0.03em;color:var(--text);margin-bottom:26px}
+.hero-title em{font-style:italic;color:var(--red);display:block}
+.hero-title .muted{font-style:normal;color:var(--text-3);font-size:0.68em;letter-spacing:-0.01em;display:block;margin-top:4px}
+.hero-desc{font-size:clamp(15px,1.7vw,17.5px);color:var(--text-2);line-height:1.85;max-width:500px;font-weight:300;margin-bottom:40px}
+.hero-desc strong{color:var(--text);font-weight:500}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:52px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:18px}
+.trust-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
+.trust-pill-check{width:17px;height:17px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-pill-check svg{width:9px;height:9px;color:var(--green)}
+
+/* hero right — card */
+.hero-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-2xl);padding:0;box-shadow:var(--sh-xl);overflow:hidden}
+.hcard-top{padding:26px 28px 0;background:linear-gradient(to bottom,var(--bg),var(--white))}
+.hcard-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.hcard-label{font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase}
+.hcard-live{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--green);font-weight:600;letter-spacing:0.03em}
+.hcard-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livepulse2 1.6s ease infinite}
+@keyframes livepulse2{0%,100%{box-shadow:0 0 0 0 rgba(45,122,95,0.45)}60%{box-shadow:0 0 0 5px rgba(45,122,95,0)}}
+.hcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--r-lg);overflow:hidden}
+.hcard-stat{background:var(--white);padding:18px 14px 16px;text-align:center;transition:background 0.2s}
+.hcard-stat:hover{background:var(--off-white)}
+.hcard-stat-n{font-family:var(--font-d);font-size:28px;line-height:1;color:var(--text);margin-bottom:5px;letter-spacing:-0.02em}
+.hcard-stat-l{font-size:10px;color:var(--text-3);letter-spacing:0.07em;text-transform:uppercase}
+.hcard-divider{height:1px;background:var(--border);margin:0 28px}
+.hcard-pkgs{padding:20px 28px 28px}
+.hcard-pkgs-label{font-size:9.5px;font-weight:700;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px}
+.pkg-row{display:flex;flex-direction:column;gap:8px}
+.pkg-row-item{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-radius:var(--r);border:1.5px solid var(--border-light);background:var(--off-white);cursor:pointer;transition:all 0.2s var(--ease);text-decoration:none}
+.pkg-row-item:hover{background:var(--bg);border-color:var(--border);transform:translateX(3px)}
+.pkg-row-item.best{background:var(--red-light);border-color:var(--red-border)}
+.pkg-row-item.best:hover{border-color:var(--red);box-shadow:0 4px 16px rgba(192,57,43,0.12)}
+.pkg-row-left{display:flex;align-items:center;gap:8px}
+.pkg-row-count{font-family:var(--font-d);font-size:22px;line-height:1;color:var(--text);min-width:28px}
+.pkg-row-meta{}
+.pkg-row-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.2}
+.pkg-row-sub{font-size:11px;color:var(--text-3)}
+.pkg-row-price{font-size:16px;font-weight:700;color:var(--red);letter-spacing:-0.01em}
+
+/* ═══════ TICKER ═══════ */
+.ticker{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;height:42px}
+.ticker-inner{display:flex;height:100%}
+.ticker-label{background:var(--text);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0 22px;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;gap:8px;z-index:2}
+.ticker-label-dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:fadepulse 1.5s ease infinite}
+.ticker-track{flex:1;overflow:hidden;display:flex;align-items:center;position:relative;-webkit-mask-image:linear-gradient(to right,transparent,black 64px,black calc(100% - 64px),transparent);mask-image:linear-gradient(to right,transparent,black 64px,black calc(100% - 64px),transparent)}
+.ticker-scroll{display:flex;animation:ticker 32s linear infinite;will-change:transform}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:7px;padding:0 30px;font-size:12.5px;color:var(--text-2);white-space:nowrap;border-left:1px solid var(--border)}
+.ticker-item b{color:var(--text);font-weight:500}
+.ticker-check{width:13px;height:13px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ticker-check svg{width:7px;height:7px;color:var(--green)}
+
+/* ═══════ NUMBERS ═══════ */
+.numbers-section{background:var(--white)}
+.numbers-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--sh)}
+@media(min-width:768px){.numbers-row{grid-template-columns:repeat(4,1fr)}}
+.num-cell{background:var(--white);padding:44px 36px;text-align:center;transition:background 0.2s;position:relative}
+.num-cell:hover{background:var(--off-white)}
+.num-cell-accent::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:2px;background:var(--red);border-radius:0 0 2px 2px}
+.num-big{font-family:var(--font-d);font-size:clamp(44px,5vw,62px);line-height:1;color:var(--text);margin-bottom:8px;letter-spacing:-0.035em}
+.num-big.red{color:var(--red)}
+.num-lbl{font-size:11px;color:var(--text-3);letter-spacing:0.08em;text-transform:uppercase;font-weight:400}
+
+/* ═══════ DARK URGENCY ═══════ */
+.urgency{background:var(--text);overflow:hidden;position:relative}
+.urgency-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none}
+.urgency-line{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:72px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.1))}
+.urgency-w{max-width:840px;margin:0 auto;padding:96px 32px;text-align:center;position:relative;z-index:1}
+.urgency-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(192,57,43,0.18);border:1px solid rgba(192,57,43,0.35);border-radius:100px;padding:5px 16px;font-size:10.5px;font-weight:600;color:rgba(255,255,255,0.8);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:28px}
+.urgency-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:fadepulse 1.5s ease infinite}
+.urgency-title{font-family:var(--font-d);font-size:clamp(32px,5vw,56px);color:#fff;line-height:1.1;letter-spacing:-0.025em;margin-bottom:16px}
+.urgency-title em{font-style:italic;color:rgba(255,255,255,0.45)}
+.urgency-desc{font-size:16px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8;margin-bottom:44px;max-width:520px;margin-left:auto;margin-right:auto}
+.urgency-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+@media(max-width:640px){.urgency-w{padding:72px 20px}}
+
+/* ═══════ HOW IT WORKS ═══════ */
+.how-bg{background:var(--bg)}
+.steps{display:grid;gap:2px}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-2xl);padding:48px 40px;position:relative;overflow:hidden;transition:transform 0.28s var(--ease),box-shadow 0.28s}
+.step-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--border);transition:background 0.3s}
+.step-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.step-card:hover::before{background:linear-gradient(90deg,var(--red),var(--gold))}
+.step-num-row{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--red);flex-shrink:0}
+.step-num-label{font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase}
+.step-icon{width:44px;height:44px;color:var(--text-3);margin-bottom:24px;transition:color 0.25s}
+.step-card:hover .step-icon{color:var(--red)}
+.step-title{font-family:var(--font-d);font-size:25px;color:var(--text);margin-bottom:12px}
+.step-desc{font-size:14px;color:var(--text-2);line-height:1.82;font-weight:300}
+.step-card-n{position:absolute;right:32px;bottom:24px;font-family:var(--font-d);font-size:96px;color:rgba(26,24,20,0.04);line-height:1;letter-spacing:-0.05em;pointer-events:none;user-select:none;transition:color 0.3s}
+.step-card:hover .step-card-n{color:rgba(192,57,43,0.06)}
+
+/* ═══════ PACKAGES ═══════ */
+.pkg-section{background:var(--white)}
+.pkg-grid-6{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:560px){.pkg-grid-6{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.pkg-grid-6{grid-template-columns:repeat(6,1fr)}}
+.pkg-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:28px 12px;text-align:center;text-decoration:none;cursor:pointer;transition:all 0.25s var(--ease)}
+.pkg-tile:hover{border-color:var(--red);background:var(--red-light);box-shadow:var(--sh-lg),0 0 28px rgba(192,57,43,0.14);transform:translateY(-5px)}
+.pkg-tile.star{border-color:var(--gold-border);background:var(--gold-light)}
+.pkg-tile.star:hover{border-color:var(--gold);box-shadow:0 16px 48px rgba(154,124,79,0.22),0 0 28px rgba(154,124,79,0.15);transform:translateY(-5px)}
+.pkg-tile-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 13px;border-radius:100px;white-space:nowrap;box-shadow:0 3px 10px rgba(154,124,79,0.35)}
+.pkg-tile-n{font-family:var(--font-d);font-size:52px;line-height:1;color:var(--text);margin-bottom:2px;letter-spacing:-0.03em;transition:color 0.2s}
+.pkg-tile:hover .pkg-tile-n{color:var(--red-d)}
+.pkg-tile.star .pkg-tile-n{color:var(--text)}
+.pkg-tile-unit{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:12px}
+.pkg-tile-price{font-size:17px;font-weight:700;color:var(--red);letter-spacing:-0.01em}
+.pkg-tile.star .pkg-tile-price{color:var(--gold-d)}
+.pkg-footer{display:flex;align-items:center;justify-content:space-between;margin-top:40px}
+.pkg-note{font-size:13px;color:var(--text-3);font-weight:300}
+
+/* ═══════ ANKARA SECTION ═══════ */
+.ankara{background:var(--off-white);border-top:1px solid var(--border)}
+.ankara-grid{display:grid;gap:72px;align-items:center}
+@media(min-width:800px){.ankara-grid{grid-template-columns:1fr 1fr}}
+.ankara-kpi-row{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:36px}
+.ankara-kpi{text-align:left}
+.ankara-kpi-n{font-family:var(--font-d);font-size:42px;line-height:1;color:var(--text);letter-spacing:-0.03em}
+.ankara-kpi-l{font-size:11px;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px}
+.ankara-visual{background:var(--white);border:1px solid var(--border);border-radius:var(--r-2xl);padding:52px 36px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.ankara-visual-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(192,57,43,0.06),transparent 70%);pointer-events:none}
+.ankara-map-icon{width:88px;height:88px;background:var(--red-light);border:2px solid var(--red-border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.ankara-map-icon svg{width:40px;height:40px;color:var(--red)}
+.ankara-visual-num{font-family:var(--font-d);font-size:64px;color:var(--text);line-height:1;letter-spacing:-0.04em;margin-bottom:6px}
+.ankara-visual-sub{font-size:12px;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:24px}
+.uni-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.uni-chip{font-size:10.5px;color:var(--text-2);background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 11px}
+
+/* ═══════ TRUST ═══════ */
+.trust-section{background:var(--white);border-top:1px solid var(--border)}
+.trust-grid{display:grid;gap:12px}
+@media(min-width:600px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
+.trust-card{background:var(--off-white);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 30px;transition:all 0.25s var(--ease)}
+.trust-card:hover{background:var(--white);box-shadow:var(--sh);transform:translateY(-3px)}
+.trust-ico{width:48px;height:48px;background:var(--bg);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:background 0.2s,transform 0.2s}
+.trust-card:hover .trust-ico{background:var(--red-light);transform:scale(1.05)}
+.trust-ico svg{width:22px;height:22px;color:var(--text-3);transition:color 0.2s}
+.trust-card:hover .trust-ico svg{color:var(--red)}
+.trust-t{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px}
+.trust-d{font-size:13px;color:var(--text-2);line-height:1.78;font-weight:300}
+
+/* ═══════ TESTIMONIALS ═══════ */
+.testi-section{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.testi-grid{display:grid;gap:12px}
+@media(min-width:640px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 28px;box-shadow:var(--sh-xs);transition:all 0.25s var(--ease);display:flex;flex-direction:column}
+.testi-card:hover{box-shadow:var(--sh);transform:translateY(-3px)}
+.testi-stars{display:flex;gap:2px;margin-bottom:20px}
+.star-gold{color:var(--gold);font-size:14px}
+.testi-q{font-size:24px;font-family:var(--font-d);color:var(--text-4);line-height:1;margin-bottom:4px}
+.testi-txt{font-size:14px;color:var(--text-2);line-height:1.82;font-weight:300;font-style:italic;flex:1;margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid var(--border-light)}
+.testi-ava{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:16px;color:var(--text-2);flex-shrink:0}
+.testi-name{font-size:13px;font-weight:500;color:var(--text)}
+.testi-meta{font-size:11.5px;color:var(--text-3)}
+
+/* ═══════ EDITORIAL QUOTE ═══════ */
+.quote-section{background:var(--text);padding:108px 32px;text-align:center;position:relative;overflow:hidden}
+.quote-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:88px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.12))}
+.quote-section::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:1px;height:88px;background:linear-gradient(to top,transparent,rgba(255,255,255,0.12))}
+.quote-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none}
+.quote-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
+.quote-mark{font-family:var(--font-d);font-size:120px;color:rgba(255,255,255,0.06);line-height:0.7;margin-bottom:36px;letter-spacing:-0.05em}
+.quote-txt{font-family:var(--font-d);font-size:clamp(24px,3.8vw,40px);font-weight:400;font-style:italic;line-height:1.52;color:#fff;margin-bottom:12px;letter-spacing:-0.015em}
+.quote-accent{font-family:var(--font-d);font-size:clamp(20px,3vw,32px);font-style:italic;color:rgba(255,255,255,0.35);margin-bottom:36px}
+.quote-line{width:40px;height:1px;background:rgba(255,255,255,0.15);margin:0 auto 20px}
+.quote-attr{font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:0.14em;text-transform:uppercase}
+@media(max-width:640px){.quote-section{padding:80px 20px}}
+
+/* ═══════ CTA ═══════ */
+.cta-section{background:var(--off-white);border-top:1px solid var(--border);padding:128px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:72px;background:linear-gradient(to bottom,var(--border),transparent)}
+.cta-orb{position:absolute;width:800px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(192,57,43,0.04),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:1}
+.cta-t{font-family:var(--font-d);font-size:clamp(38px,5.5vw,68px);line-height:1.08;letter-spacing:-0.03em;color:var(--text);margin-bottom:20px}
+.cta-t em{font-style:italic;color:var(--red)}
+.cta-d{font-size:17.5px;color:var(--text-2);max-width:520px;margin:0 auto 48px;line-height:1.8;font-weight:300}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.cta-micro{font-size:12px;color:var(--text-3)}
+.cta-micro span{margin:0 6px;opacity:0.4}
+@media(max-width:640px){.cta-section{padding:80px 20px}}
+
+/* ═══════ FOOTER ═══════ */
+footer{background:var(--text)}
+.ft-main{max-width:1280px;margin:0 auto;padding:80px 32px 52px;display:grid;gap:52px}
+@media(min-width:800px){.ft-main{grid-template-columns:2.4fr 1fr 1fr 1fr}}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ft-logo-icon{width:34px;height:34px;background:rgba(255,255,255,0.1);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.ft-logo-icon svg{width:16px;height:16px;color:rgba(255,255,255,0.7)}
+.ft-name{font-family:var(--font-d);font-size:20px;color:#fff}
+.ft-sub{font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:16px;letter-spacing:0.03em}
+.ft-desc{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.9;max-width:290px;font-weight:300}
+.ft-chips{display:flex;gap:6px;margin-top:26px;flex-wrap:wrap}
+.ft-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:4px 11px;font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;transition:all 0.2s}
+.ft-chip:hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)}
+.ft-chip svg{width:8px;height:8px;color:var(--green)}
+.ft-col-t{font-size:10px;font-weight:700;color:rgba(255,255,255,0.25);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-col ul a{font-size:13.5px;color:rgba(255,255,255,0.45);transition:color 0.15s;font-weight:300}
+.ft-col ul a:hover{color:#fff}
+.ft-bottom{max-width:1280px;margin:0 auto;padding:24px 32px;border-top:1px solid rgba(255,255,255,0.07);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ft-copy{font-size:11.5px;color:rgba(255,255,255,0.22);font-weight:300}
+.ft-by{font-size:11px;color:rgba(255,255,255,0.18);letter-spacing:0.05em}
+@media(max-width:640px){.ft-main{padding:56px 20px 40px}.ft-bottom{padding:20px}}
+
+/* ═══════ REVEAL ═══════ */
+.r{opacity:0;transform:translateY(22px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease);will-change:opacity,transform}
+.r.v{opacity:1;transform:none}
+.r-left{opacity:0;transform:translateX(-18px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease);will-change:opacity,transform}
+.r-left.v{opacity:1;transform:none}
+.r-scale{opacity:0;transform:scale(0.97) translateY(12px);transition:opacity 0.65s var(--ease),transform 0.65s var(--ease);will-change:opacity,transform}
+.r-scale.v{opacity:1;transform:none}
+.r.d1,.r-left.d1,.r-scale.d1{transition-delay:0.08s}
+.r.d2,.r-left.d2,.r-scale.d2{transition-delay:0.16s}
+.r.d3,.r-left.d3,.r-scale.d3{transition-delay:0.24s}
+.r.d4,.r-left.d4,.r-scale.d4{transition-delay:0.32s}
+
+/* ═══════ BUTTON SHIMMER ═══════ */
+@keyframes shimmerSweep{0%{left:-120%}100%{left:130%}}
+.btn-red{position:relative;overflow:hidden}
+.btn-red::after{content:'';position:absolute;top:0;left:-120%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent);transform:skewX(-15deg);pointer-events:none}
+.btn-red:hover::after{animation:shimmerSweep 0.55s var(--ease)}
+
+/* ═══════ STEP CONNECTOR LINE ═══════ */
+@media(min-width:760px){
+.steps{position:relative}
+.steps::before{content:'';position:absolute;top:50%;left:calc(33.33% - 20px);right:calc(33.33% - 20px);height:1px;background:linear-gradient(to right,var(--red-border),var(--border),var(--red-border));pointer-events:none;z-index:0;opacity:0.6}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-pill"><span class="announce-pill-dot"></span>Ankara'da Tek</span>
+    <strong>pilavustuask.com güvencesiyle</strong>
+    <span class="announce-sep">·</span>
+    SSL Korumalı
+    <span class="announce-sep">·</span>
+    KVKK Uyumlu
+    <span class="announce-sep">·</span>
+    13 Üniversite
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav at-top" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      </span>
+      <span class="nav-logo-text">
+        <span class="nav-logo-name">Askıda Pilav</span>
+        <span class="nav-logo-sub">Ankara'nın öğrenci yemek platformu</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">Hakkımızda</a>
+      <a href="request.html">Talep Et</a>
+      <a href="student-register.html">Öğrenci Kaydı</a>
+      <a href="student-qr.html">QR Kodum</a>
+    </div>
+    <a href="donate.html" class="nav-cta btn">
+      Bağış Yap
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <button class="hamburger" id="hbg" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="index.html" class="nav-logo" style="text-decoration:none">
+      <span class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></span>
+      <span style="font-family:var(--font-d);font-size:18px;color:var(--text)">Askıda Pilav</span>
+    </a>
+    <button class="drawer-close" id="drClose">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="about.html">Hakkımızda</a>
+    <a href="student-register.html">Öğrenci Kaydı</a>
+    <a href="student-qr.html">QR Kodum</a>
+    <a href="request.html">Talep Et</a>
+  </div>
+  <div class="drawer-foot">
+    <a href="donate.html" class="btn btn-red" style="width:100%;justify-content:center;font-size:16px;padding:16px">
+      Bağış Yap
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ═════════════════════ HERO ═════════════════════ -->
+<div class="hero">
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-grid">
+    <!-- LEFT -->
+    <div>
+      <div class="hero-exclusive">
+        <span class="hero-exclusive-tag">Ankara'da Tek</span>
+        <span class="hero-exclusive-txt">Öğrenci yemek bağış platformu</span>
+      </div>
+      <div class="hero-eyebrow">
+        <span class="live-dot"></span>
+        Platform aktif &nbsp;·&nbsp; 13 Üniversite
+      </div>
+      <h1 class="hero-title">
+        Her tabak,<br>
+        <em>bir geleceğe</em>
+        <span class="muted">dönüşür</span>
+      </h1>
+      <p class="hero-desc">
+        Ankara'daki üniversite öğrencilerine sıcak yemek bağışlayın.<br>
+        <strong>Her bağış belgeyle takip edilir, QR ile teslim edilir.</strong><br>
+        Güvenli, şeffaf ve 100% gerçek.
+      </p>
+      <div class="hero-actions">
+        <a href="donate.html" class="btn btn-red btn-red-lg">
+          Şimdi Bağış Yap
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="about.html" class="btn btn-ghost">Nasıl Çalışır?</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-pill">
+          <span class="trust-pill-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          SSL &amp; KVKK Uyumlu
+        </div>
+        <div class="trust-pill">
+          <span class="trust-pill-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          100% Şeffaf Sistem
+        </div>
+        <div class="trust-pill">
+          <span class="trust-pill-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          QR Doğrulamalı Teslim
+        </div>
+      </div>
+      <!-- Floating live badge -->
+      <div style="display:inline-flex;align-items:center;gap:9px;margin-top:28px;background:var(--text);color:rgba(255,255,255,0.75);font-size:12px;padding:9px 18px;border-radius:100px;font-weight:400;letter-spacing:0.01em">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(45,122,95,0.5);animation:livepulse 1.8s ease infinite;flex-shrink:0"></span>
+        Bu hafta <strong style="color:#fff;font-weight:600;margin:0 3px" id="weeklyMeals">—</strong> yemek bağışlandı
+      </div>
+    </div>
+    <!-- RIGHT CARD -->
+    <div>
+      <div class="hero-card">
+        <div class="hcard-top">
+          <div class="hcard-header">
+            <div class="hcard-label">Canlı İstatistikler</div>
+            <div class="hcard-live"><span class="hcard-live-dot"></span> Canlı</div>
+          </div>
+          <div class="hcard-stats">
+            <div class="hcard-stat">
+              <div class="hcard-stat-n" id="liveMeals">—</div>
+              <div class="hcard-stat-l">Yemek</div>
+            </div>
+            <div class="hcard-stat">
+              <div class="hcard-stat-n" id="liveStudents">—</div>
+              <div class="hcard-stat-l">Öğrenci</div>
+            </div>
+            <div class="hcard-stat">
+              <div class="hcard-stat-n">13</div>
+              <div class="hcard-stat-l">Üniversite</div>
+            </div>
+            <div class="hcard-stat">
+              <div class="hcard-stat-n">2019</div>
+              <div class="hcard-stat-l">Kuruluş</div>
+            </div>
+          </div>
+        </div>
+        <div class="hcard-divider" style="margin-top:20px"></div>
+        <div class="hcard-pkgs">
+          <div class="hcard-pkgs-label">Hızlı Bağış Seç</div>
+          <div class="pkg-row">
+            <a href="donate.html?amount=1" class="pkg-row-item">
+              <div class="pkg-row-left">
+                <div class="pkg-row-count">1</div>
+                <div class="pkg-row-meta">
+                  <div class="pkg-row-name">Tavuklu Pilav + Ayran</div>
+                  <div class="pkg-row-sub">Bir öğrenciye bir öğün</div>
+                </div>
+              </div>
+              <div class="pkg-row-price">₺200</div>
+            </a>
+            <a href="donate.html?amount=10" class="pkg-row-item best">
+              <div class="pkg-row-left">
+                <div class="pkg-row-count">10</div>
+                <div class="pkg-row-meta">
+                  <div class="pkg-row-name">Tavuklu Pilav + Ayran &nbsp;<span style="font-size:10px;color:var(--gold);font-weight:600;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:100px;padding:1px 7px;vertical-align:middle">En Çok</span></div>
+                  <div class="pkg-row-sub">En çok tercih edilen</div>
+                </div>
+              </div>
+              <div class="pkg-row-price">₺1.900</div>
+            </a>
+            <a href="donate.html?amount=50" class="pkg-row-item">
+              <div class="pkg-row-left">
+                <div class="pkg-row-count">50</div>
+                <div class="pkg-row-meta">
+                  <div class="pkg-row-name">Tavuklu Pilav + Ayran</div>
+                  <div class="pkg-row-sub">Büyük etki, büyük mutluluk</div>
+                </div>
+              </div>
+              <div class="pkg-row-price">₺9.500</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ TICKER ═════════════════════ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-label">
+      <span class="ticker-label-dot"></span>
+      Son Bağışlar
+    </div>
+    <div class="ticker-track">
+      <div class="ticker-scroll">
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Mehmet A.</b>&nbsp;10 yemek bağışladı · Çankaya</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Ayşe K.</b>&nbsp;5 yemek bağışladı · Keçiören</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Bir ODTÜ mezunu</b>&nbsp;50 yemek bağışladı</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Ali R.</b>&nbsp;3 yemek bağışladı · Etimesgut</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Fatma Y.</b>&nbsp;20 yemek bağışladı · Mamak</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Hacettepe Mezunları Derneği</b>&nbsp;100 yemek bağışladı</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Selma T.</b>&nbsp;1 yemek bağışladı · Yenimahalle</div>
+        <!-- duplicate for seamless -->
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Mehmet A.</b>&nbsp;10 yemek bağışladı · Çankaya</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Ayşe K.</b>&nbsp;5 yemek bağışladı · Keçiören</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Bir ODTÜ mezunu</b>&nbsp;50 yemek bağışladı</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Ali R.</b>&nbsp;3 yemek bağışladı · Etimesgut</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Fatma Y.</b>&nbsp;20 yemek bağışladı · Mamak</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Hacettepe Mezunları Derneği</b>&nbsp;100 yemek bağışladı</div>
+        <div class="ticker-item"><span class="ticker-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><b>Selma T.</b>&nbsp;1 yemek bağışladı · Yenimahalle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ NUMBERS ═════════════════════ -->
+<section class="section numbers-section">
+  <div class="w">
+    <div class="hdr r">
+      <div class="section-tag">Gerçek Etki</div>
+      <h2 class="section-title">Rakamlarla <em>Askıda Pilav</em></h2>
+      <p class="section-desc">Her bağışın takip edilebilir, gerçek ve ölçülebilir sonuçları. Ankara'da hiçbir platform bunu bu kadar şeffaf yapamıyor.</p>
+    </div>
+    <div class="numbers-row r">
+      <div class="num-cell num-cell-accent">
+        <div class="num-big red" id="statStudents">0</div>
+        <div class="num-lbl">Kayıtlı Öğrenci</div>
+      </div>
+      <div class="num-cell">
+        <div class="num-big" id="statMeals">0</div>
+        <div class="num-lbl">Dağıtılan Yemek</div>
+      </div>
+      <div class="num-cell">
+        <div class="num-big" id="statDonors">0</div>
+        <div class="num-lbl">Bağışçı</div>
+      </div>
+      <div class="num-cell">
+        <div class="num-big">13</div>
+        <div class="num-lbl">Partner Üniversite</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ URGENCY ═════════════════════ -->
+<div class="urgency">
+  <div class="urgency-noise"></div>
+  <div class="urgency-line"></div>
+  <div class="urgency-w">
+    <div class="urgency-eyebrow r">
+      <span class="urgency-eyebrow-dot"></span>
+      Bu hafta destek bekliyor
+    </div>
+    <h2 class="urgency-title r">
+      Bugün bağış yapmak için<br>
+      <em>en iyi gün.</em>
+    </h2>
+    <p class="urgency-desc r">
+      Ankara'daki yüzlerce öğrenci her hafta destek bekliyor.<br>
+      Bir tabak yemek, bazen hepsini değiştirir.
+    </p>
+    <div class="urgency-btns r">
+      <a href="donate.html" class="btn btn-white">
+        Şimdi Bağış Yap
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="about.html" class="btn btn-outline-white">Daha Fazla Bilgi</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ HOW IT WORKS ═════════════════════ -->
+<section class="section how-bg">
+  <div class="w">
+    <div class="hdr r">
+      <div class="section-tag">Nasıl Çalışır</div>
+      <h2 class="section-title">3 adımda <em>gerçek fark</em></h2>
+      <p class="section-desc">Bağışınız sadece rakamda kalmaz. Her adım belgelenir, her yemek kayıt altındadır.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card r">
+        <div class="step-num-row">
+          <span class="step-num">1</span>
+          <span class="step-num-label">Paket Seç</span>
+        </div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <h3 class="step-title">Paket seçin</h3>
+        <p class="step-desc">1'den 50'ye kadar yemek paketi seçin. Tüm ödemeler güvenli altyapıda, dakikalar içinde işlenir. Kredi kartı, havale — her yöntem güvende.</p>
+        <div class="step-card-n">1</div>
+      </div>
+      <div class="step-card r d1">
+        <div class="step-num-row">
+          <span class="step-num">2</span>
+          <span class="step-num-label">Otomatik Eşleşme</span>
+        </div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <h3 class="step-title">Sistem eşleştirir</h3>
+        <p class="step-desc">Bağışınız, belgeli ve onaylı kayıtlı öğrencilerle anında otomatik eşleştirilir. İhtiyaç sahibi kimse geride kalmaz, her destek yerine ulaşır.</p>
+        <div class="step-card-n">2</div>
+      </div>
+      <div class="step-card r d2">
+        <div class="step-num-row">
+          <span class="step-num">3</span>
+          <span class="step-num-label">QR ile Teslim</span>
+        </div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <h3 class="step-title">QR ile teslim alır</h3>
+        <p class="step-desc">Öğrenci tek kullanımlık QR koduyla yemeğini alır. Her teslim kayıt altında. İkinci kullanım engellidir. Suistimal imkânsız.</p>
+        <div class="step-card-n">3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ PACKAGES ═════════════════════ -->
+<section class="section pkg-section" style="border-top:1px solid var(--border)">
+  <div class="w">
+    <div class="hdr r">
+      <div class="section-tag">Bağış Paketleri</div>
+      <h2 class="section-title">Bir tıkla <em>bağış yap</em></h2>
+      <p class="section-desc">Her yemek bir öğrenciye ulaşır. Hangi paketi seçersen seç, fark gerçek.</p>
+    </div>
+    <div class="pkg-grid-6 r">
+      <a href="donate.html?amount=1" class="pkg-tile">
+        <div class="pkg-tile-n">1</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺200</div>
+      </a>
+      <a href="donate.html?amount=3" class="pkg-tile">
+        <div class="pkg-tile-n">3</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺600</div>
+      </a>
+      <a href="donate.html?amount=5" class="pkg-tile">
+        <div class="pkg-tile-n">5</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺1.000</div>
+      </a>
+      <a href="donate.html?amount=10" class="pkg-tile star">
+        <div class="pkg-tile-badge">En Çok Tercih</div>
+        <div class="pkg-tile-n">10</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺1.900</div>
+      </a>
+      <a href="donate.html?amount=20" class="pkg-tile">
+        <div class="pkg-tile-n">20</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺3.800</div>
+      </a>
+      <a href="donate.html?amount=50" class="pkg-tile">
+        <div class="pkg-tile-n">50</div>
+        <div class="pkg-tile-unit">Tavuklu Pilav + Ayran</div>
+        <div class="pkg-tile-price">₺9.500</div>
+      </a>
+    </div>
+    <div class="pkg-footer r">
+      <span class="pkg-note">Tüm bağışlar belgelidir ve takip edilebilirdir.</span>
+      <a href="donate.html" class="btn btn-red">
+        Bağış Yap
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ ANKARA EXCLUSIVE ═════════════════════ -->
+<section class="section ankara" style="padding-top:108px;padding-bottom:108px">
+  <div class="w">
+    <div class="ankara-grid">
+      <div class="r">
+        <div class="section-tag">Ankara'da Tek</div>
+        <h2 class="section-title" style="max-width:420px">Başkentin <em>tek</em><br>yemek platformu</h2>
+        <p class="section-desc" style="margin-bottom:36px">Ankara'nın 13 üniversitesini kapsayan, öğrenci kimlik doğrulamalı, QR tabanlı tek yemek bağış platformuyuz. Bunun gibi başka bir sistem Ankara'da mevcut değil.</p>
+        <div class="ankara-kpi-row">
+          <div class="ankara-kpi">
+            <div class="ankara-kpi-n">13</div>
+            <div class="ankara-kpi-l">Üniversite</div>
+          </div>
+          <div class="ankara-kpi">
+            <div class="ankara-kpi-n" id="ankStudents">—</div>
+            <div class="ankara-kpi-l">Öğrenci</div>
+          </div>
+          <div class="ankara-kpi">
+            <div class="ankara-kpi-n">%100</div>
+            <div class="ankara-kpi-l">Şeffaf</div>
+          </div>
+        </div>
+        <a href="about.html" class="btn btn-ghost">Hikayemizi Oku</a>
+      </div>
+      <div class="ankara-visual r d1">
+        <div class="ankara-visual-glow"></div>
+        <div class="ankara-map-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </div>
+        <div class="ankara-visual-num">Ankara</div>
+        <div class="ankara-visual-sub">Türkiye'nin Başkenti</div>
+        <div class="uni-chips">
+          <span class="uni-chip">ODTÜ</span>
+          <span class="uni-chip">Hacettepe</span>
+          <span class="uni-chip">Ankara Üniv.</span>
+          <span class="uni-chip">Bilkent</span>
+          <span class="uni-chip">Gazi</span>
+          <span class="uni-chip">Atılım</span>
+          <span class="uni-chip">TOBB ETÜ</span>
+          <span class="uni-chip">Başkent</span>
+          <span class="uni-chip">+ 5 daha</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ TRUST ═════════════════════ -->
+<section class="section trust-section">
+  <div class="w">
+    <div class="hdr r">
+      <div class="section-tag">Güven &amp; Güvenlik</div>
+      <h2 class="section-title">Neden <em>güvenilir?</em></h2>
+      <p class="section-desc">pilavustuask.com güvencesiyle her adım denetlenebilir, korumalı ve şeffaftır.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card r">
+        <div class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="trust-t">SSL + KVKK</div>
+        <p class="trust-d">256-bit SSL şifreleme ve KVKK uyumlu veri işleme. Güvenliğiniz her zaman birinci öncelik.</p>
+      </div>
+      <div class="trust-card r d1">
+        <div class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="trust-t">Belge Doğrulama</div>
+        <p class="trust-d">Her öğrenci resmî öğrenci belgesiyle kayıt olur. Kimlik gizlidir, onur korunur.</p>
+      </div>
+      <div class="trust-card r d2">
+        <div class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="trust-t">Tam Şeffaflık</div>
+        <p class="trust-d">Her bağış takip edilebilir. Yıllık faaliyet raporları kamuya açık yayınlanır.</p>
+      </div>
+      <div class="trust-card r d3">
+        <div class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/></svg></div>
+        <div class="trust-t">QR Doğrulama</div>
+        <p class="trust-d">Tek kullanımlık QR sistemi. İkinci kullanım engellidir. Suistimal tamamen önlenir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ TESTIMONIALS ═════════════════════ -->
+<section class="section testi-section">
+  <div class="w">
+    <div class="hdr r">
+      <div class="section-tag">Sesler</div>
+      <h2 class="section-title">Onlar <em>anlatsın</em></h2>
+      <p class="section-desc">Bağışçılardan ve öğrencilerden gerçek deneyimler.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card r">
+        <div class="testi-stars"><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span></div>
+        <div class="testi-q">"</div>
+        <p class="testi-txt">Her ay 10 yemek bağışlıyorum. QR sistemi sayesinde bağışımın gerçekten ulaştığını biliyorum. Bu kadar şeffaf bir platform görmedim.</p>
+        <div class="testi-author">
+          <div class="testi-ava">M</div>
+          <div>
+            <div class="testi-name">Mehmet A.</div>
+            <div class="testi-meta">Düzenli Bağışçı · Ankara</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card r d1">
+        <div class="testi-stars"><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span></div>
+        <div class="testi-q">"</div>
+        <p class="testi-txt">Maddi sıkıntı yaşadığım dönemde bu platform gerçekten hayat kurtardı. Onurumuzu koruyarak yardım alabilmek paha biçilemez.</p>
+        <div class="testi-author">
+          <div class="testi-ava">Z</div>
+          <div>
+            <div class="testi-name">Z. T.</div>
+            <div class="testi-meta">Öğrenci · Hacettepe Üniversitesi</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card r d2">
+        <div class="testi-stars"><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span><span class="star-gold">★</span></div>
+        <div class="testi-q">"</div>
+        <p class="testi-txt">Şirketimiz olarak her çeyrek toplu bağış yapıyoruz. Sistem son derece profesyonel, raporlama mükemmel, ekip çok ilgili.</p>
+        <div class="testi-author">
+          <div class="testi-ava">F</div>
+          <div>
+            <div class="testi-name">Figen B.</div>
+            <div class="testi-meta">Kurumsal Bağışçı · İK Direktörü</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ QUOTE ═════════════════════ -->
+<div class="quote-section">
+  <div class="quote-noise"></div>
+  <div class="quote-inner r">
+    <div class="quote-mark">"</div>
+    <p class="quote-txt">Bir öğrencinin aç karnına ders çalışmasına izin verme.</p>
+    <p class="quote-accent">Bir tabak yemek, bazen bir geleceği değiştirir.</p>
+    <div class="quote-line"></div>
+    <p class="quote-attr">Askıda Pilav Ekibi &nbsp;·&nbsp; Ankara, 2019</p>
+  </div>
+</div>
+
+<!-- ═════════════════════ CTA ═════════════════════ -->
+<section class="cta-section">
+  <div class="cta-orb"></div>
+  <div class="cta-inner">
+    <div class="section-tag r" style="justify-content:center">Harekete Geç</div>
+    <h2 class="cta-t r">
+      Bugün bir tabak<br>
+      <em>bağışla</em>
+    </h2>
+    <p class="cta-d r">Ankara'daki yüzlerce öğrenci seni bekliyor. Bir tıkla gerçek bir fark yarat. Ankara'nın tek platformuna sen de katıl.</p>
+    <div class="cta-btns r">
+      <a href="donate.html" class="btn btn-red btn-red-lg">
+        Bağış Yap
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="student-register.html" class="btn btn-ghost" style="font-size:15px;padding:16px 28px">Öğrenci Kaydı</a>
+    </div>
+    <p class="cta-micro r">SSL Korumalı <span>·</span> KVKK Uyumlu <span>·</span> Bilgileriniz paylaşılmaz</p>
+  </div>
+</section>
+
+<!-- ═════════════════════ FOOTER ═════════════════════ -->
+<footer>
+  <div class="ft-main">
+    <div>
+      <div class="ft-logo">
+        <span class="ft-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </span>
+        <span class="ft-name">Askıda Pilav</span>
+      </div>
+      <div class="ft-sub">pilavustuask.com güvencesiyle</div>
+      <p class="ft-desc">Ankara'daki üniversite öğrencilerine sıcak yemek ulaştıran Türkiye'nin ilk şeffaf, QR tabanlı öğrenci yemek bağış platformu. 2019'dan beri Ankara'dayız.</p>
+      <div class="ft-chips">
+        <span class="ft-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSL</span>
+        <span class="ft-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>KVKK</span>
+        <span class="ft-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Şeffaf</span>
+      </div>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-t">Platform</div>
+      <ul>
+        <li><a href="donate.html">Bağış Yap</a></li>
+        <li><a href="student-register.html">Öğrenci Kaydı</a></li>
+        <li><a href="student-qr.html">QR Kodum</a></li>
+        <li><a href="request.html">Talep Et</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-t">Kurumsal</div>
+      <ul>
+        <li><a href="about.html">Hakkımızda</a></li>
+        <li><a href="about.html">Misyonumuz</a></li>
+        <li><a href="#">KVKK Metni</a></li>
+        <li><a href="#">İletişim</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-t">Ankara</div>
+      <ul>
+        <li><a href="#">ODTÜ</a></li>
+        <li><a href="#">Hacettepe</a></li>
+        <li><a href="#">Gazi Üni.</a></li>
+        <li><a href="#">Tüm Üniversiteler</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2024 pilavustuask.com.tr — Tüm hakları saklıdır.</span>
+    <span class="ft-by">Ankara'nın tek öğrenci yemek bağış platformu</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL='https://svvjgqdyzjschuoxvsig.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+const db=window.supabase.createClient(SUPA_URL,SUPA_KEY);
+
+/* — NAV — */
+const nav=document.getElementById('nav');
+function updateNav(){
+  const y=window.scrollY;
+  nav.classList.toggle('at-top',y<8);
+  nav.classList.toggle('scrolled',y>=8);
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+
+/* — DRAWER — */
+function openDrawer(){document.getElementById('drawer').classList.add('open');document.body.style.overflow='hidden'}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('hbg').addEventListener('click',openDrawer);
+document.getElementById('drClose').addEventListener('click',closeDrawer);
+document.querySelectorAll('.drawer-links a,.drawer-foot a').forEach(a=>a.addEventListener('click',closeDrawer));
+
+/* — REVEAL — */
+function initReveal(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target)}
+    });
+  },{threshold:0.04,rootMargin:'0px 0px -32px 0px'});
+  document.querySelectorAll('.r,.r-left,.r-scale').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top<window.innerHeight+40&&rect.bottom>-40){
+      el.classList.add('v');
+    } else {
+      io.observe(el);
+    }
+  });
+}
+
+/* — COUNT-UP — */
+function countUp(el,target,dur){
+  if(!el||!target)return;
+  const s=performance.now();
+  (function tick(now){
+    const t=Math.min((now-s)/dur,1);
+    const e=1-Math.pow(1-t,3);
+    el.textContent=Math.floor(e*target).toLocaleString('tr-TR');
+    if(t<1)requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+let stats={students:0,meals:0,donations:0},counted=false;
+const numIo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!counted){
+      counted=true;
+      countUp(document.getElementById('statStudents'),stats.students,1400);
+      countUp(document.getElementById('statMeals'),stats.meals,1900);
+      countUp(document.getElementById('statDonors'),stats.donations,1200);
+    }
+  });
+},{threshold:0.15});
+const numEl=document.querySelector('.numbers-row');
+if(numEl)numIo.observe(numEl);
+
+/* — LOAD STATS — */
+async function loadStats(){
+  try{
+    const[sR,dR]=await Promise.all([
+      db.from('students').select('id',{count:'exact',head:true}),
+      db.from('donations').select('meal_count',{count:'exact'})
+    ]);
+    stats.students=sR.count||0;
+    stats.donations=dR.count||0;
+    stats.meals=(dR.data||[]).reduce((a,d)=>a+(d.meal_count||0),0);
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v.toLocaleString('tr-TR')};
+    set('liveMeals',stats.meals);
+    set('liveStudents',stats.students);
+    set('ankStudents',stats.students);
+    set('weeklyMeals',stats.meals);
+  }catch{
+    ['liveMeals','liveStudents','ankStudents','weeklyMeals'].forEach(id=>{
+      const el=document.getElementById(id);if(el)el.textContent='—';
+    });
+  }
+}
+
+/* — INIT — */
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',()=>{initReveal();loadStats()});
+}else{
+  initReveal();loadStats();
+}
+</script>
+</body>
+</html>

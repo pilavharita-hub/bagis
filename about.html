@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Hakkımızda – Askıda Pilav</title>
+  <meta name="description" content="2019'dan bu yana Ankara'daki üniversite öğrencilerine sıcak yemek ulaştıran şeffaf bağış platformu hakkında her şey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+/* ── RESET ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────────────── */
+:root{
+  --white:#ffffff; --off-white:#faf9f7; --bg:#f5f3ef; --bg-2:#f0ede7;
+  --border:#e8e4dc; --border-light:#f0ece4;
+  --text:#1a1814; --text-2:#6b6560; --text-3:#b0aa9f; --text-4:#d4cfc8;
+  --red:#c0392b; --red-d:#a93226; --red-light:#fdf3f2; --red-border:#f5cac7;
+  --gold:#9a7c4f; --gold-d:#8a6e41; --gold-light:#f9f5ee; --gold-border:rgba(154,124,79,0.25);
+  --green:#2d7a5f; --green-light:#edf7f3;
+  --r-xs:4px; --r-sm:6px; --r:10px; --r-lg:16px; --r-xl:24px; --r-2xl:32px;
+  --sh-xs:0 1px 3px rgba(26,24,20,0.05);
+  --sh-sm:0 2px 8px rgba(26,24,20,0.06),0 1px 3px rgba(26,24,20,0.04);
+  --sh:0 4px 20px rgba(26,24,20,0.08),0 1px 4px rgba(26,24,20,0.04);
+  --sh-lg:0 16px 48px rgba(26,24,20,0.11),0 4px 12px rgba(26,24,20,0.06);
+  --sh-xl:0 32px 80px rgba(26,24,20,0.14),0 8px 24px rgba(26,24,20,0.07);
+  --sh-red:0 12px 40px rgba(192,57,43,0.25);
+  --font-d:'DM Serif Display',Georgia,serif;
+  --font-b:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+
+html{scroll-behavior:smooth;font-size:16px;text-rendering:optimizeLegibility}
+body{background:var(--off-white);color:var(--text);font-family:var(--font-b);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--red-light);color:var(--red)}
+
+/* ── ANNOUNCE BAR ──────────────────────────────────────────────────── */
+.announce{background:var(--text);color:rgba(255,255,255,0.65);text-align:center;padding:10px 20px;font-size:11.5px;letter-spacing:0.025em;position:relative;overflow:hidden}
+.announce-inner{display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.announce-pill{display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2.5px 9px;border-radius:100px}
+.announce-pill-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:fadepulse 2s ease infinite}
+@keyframes fadepulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.announce-sep{color:rgba(255,255,255,0.2)}
+.announce strong{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ── NAV ───────────────────────────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow 0.3s,border-color 0.3s}
+.nav.at-top{border-color:transparent;background:rgba(255,255,255,0.98)}
+.nav.scrolled{box-shadow:var(--sh);border-color:var(--border)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 32px;height:66px;display:flex;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:auto}
+.nav-logo-icon{width:34px;height:34px;background:var(--text);border-radius:9px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;flex-shrink:0}
+.nav-logo-icon:hover{background:var(--red)}
+.nav-logo-icon svg{width:16px;height:16px;color:#fff}
+.nav-logo-name{font-family:var(--font-d);font-size:18.5px;color:var(--text);display:block;line-height:1.1;letter-spacing:-0.01em}
+.nav-logo-sub{font-size:9.5px;color:var(--text-3);letter-spacing:0.04em;font-weight:400;display:none}
+@media(min-width:1024px){.nav-logo-sub{display:block}}
+.nav-links{display:none;align-items:center;gap:2px;margin:0 24px}
+.nav-links a{font-size:13.5px;font-weight:400;color:var(--text-2);padding:8px 13px;border-radius:var(--r-sm);transition:color 0.15s,background 0.15s;white-space:nowrap}
+.nav-links a:hover{color:var(--text);background:var(--bg)}
+.nav-links a.active{color:var(--text);font-weight:500}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;background:var(--red);color:#fff;font-size:13.5px;font-weight:500;padding:10px 22px;border-radius:var(--r);transition:all 0.2s var(--ease);white-space:nowrap;overflow:hidden;letter-spacing:-0.01em}
+.nav-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent 60%);pointer-events:none}
+.nav-cta:hover{background:var(--red-d);transform:translateY(-1px);box-shadow:var(--sh-red)}
+.hamburger{display:flex;flex-direction:column;gap:4.5px;background:none;border:1px solid var(--border);width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;border-radius:var(--r-sm);margin-left:10px;transition:border-color 0.2s}
+.hamburger:hover{border-color:var(--text-3)}
+.hamburger span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:1px;transition:all 0.25s}
+@media(min-width:900px){.nav-links{display:flex}.hamburger{display:none}}
+
+/* ── BUTTONS ───────────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-b);cursor:pointer;transition:all 0.2s var(--ease);border:none;white-space:nowrap;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent 60%);pointer-events:none;opacity:0;transition:opacity 0.2s}
+.btn:hover::before{opacity:1}
+.arrow-icon{width:14px;height:14px;flex-shrink:0;transition:transform 0.2s var(--ease)}
+.btn:hover .arrow-icon{transform:translateX(3px)}
+.btn-red{background:var(--red);color:#fff;font-size:15px;font-weight:500;padding:15px 32px;border-radius:var(--r);letter-spacing:-0.01em}
+.btn-red:hover{background:var(--red-d);transform:translateY(-2px);box-shadow:var(--sh-red)}
+.btn-ghost{background:transparent;color:var(--text);font-size:15px;font-weight:400;padding:14px 26px;border-radius:var(--r);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--text-3);background:var(--white);transform:translateY(-1px)}
+.btn-white{background:#fff;color:var(--text);font-size:15px;font-weight:600;padding:15px 32px;border-radius:var(--r)}
+.btn-white:hover{background:var(--off-white);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.18)}
+.btn-outline-white{background:transparent;color:rgba(255,255,255,0.8);font-size:14.5px;font-weight:400;padding:14px 26px;border-radius:var(--r);border:1.5px solid rgba(255,255,255,0.2)}
+.btn-outline-white:hover{color:#fff;border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.06)}
+
+/* ── DRAWER ────────────────────────────────────────────────────────── */
+.drawer{position:fixed;inset:0;z-index:1000;display:grid;grid-template-rows:66px 1fr auto;background:#fff;transform:translateX(100%);transition:transform 0.38s var(--ease)}
+.drawer.open{transform:none}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border)}
+.drawer-close{background:none;border:1px solid var(--border);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-2);font-size:14px;transition:all 0.2s}
+.drawer-close:hover{color:var(--text);border-color:var(--text-3)}
+.drawer-links{display:flex;flex-direction:column;padding:8px}
+.drawer-links a{display:flex;align-items:center;justify-content:space-between;font-size:17px;color:var(--text-2);padding:16px 16px;border-radius:var(--r);transition:all 0.15s}
+.drawer-links a:hover{color:var(--text);background:var(--bg)}
+.drawer-links a::after{content:'→';font-size:14px;color:var(--text-4)}
+.drawer-foot{padding:20px 16px;border-top:1px solid var(--border)}
+
+/* ── SECTION UTILITIES ─────────────────────────────────────────────── */
+.section{padding:108px 32px}
+.w{max-width:1280px;margin:0 auto}
+.section-tag{font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-tag::before{content:'';display:block;width:20px;height:1.5px;background:var(--red);flex-shrink:0;border-radius:1px}
+.section-title{font-family:var(--font-d);font-size:clamp(32px,3.8vw,52px);line-height:1.1;letter-spacing:-0.025em;color:var(--text);margin-bottom:16px}
+.section-title em{font-style:italic;color:var(--red)}
+.section-desc{font-size:16px;color:var(--text-2);line-height:1.82;font-weight:300;max-width:520px}
+@media(max-width:640px){.section{padding:72px 20px}.section-title{font-size:clamp(28px,8vw,40px)}}
+
+/* ── REVEAL ────────────────────────────────────────────────────────── */
+.r{opacity:0;transform:translateY(22px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease);will-change:opacity,transform}
+.r.v{opacity:1;transform:none}
+.r.d1{transition-delay:0.08s}
+.r.d2{transition-delay:0.16s}
+.r.d3{transition-delay:0.24s}
+.r.d4{transition-delay:0.32s}
+
+/* ── NOISE MIXIN ───────────────────────────────────────────────────── */
+.noise-overlay{position:relative;overflow:hidden}
+.noise-overlay::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+.noise-overlay > *{position:relative;z-index:1}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO — editorial 2-col layout
+═══════════════════════════════════════════════════════════════════ */
+.hero{background:var(--white);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero-orb-1{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,0.055) 0%,transparent 65%);top:-240px;right:-200px;pointer-events:none;z-index:0}
+.hero-orb-2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(154,124,79,0.04) 0%,transparent 65%);bottom:-120px;left:-100px;pointer-events:none;z-index:0}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-repeat:repeat;pointer-events:none;z-index:0;opacity:0.6}
+.hero-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:100px 32px 116px;display:grid;gap:72px;align-items:center}
+@media(min-width:860px){.hero-inner{grid-template-columns:1fr 480px;padding:116px 32px 128px}}
+@media(min-width:1100px){.hero-inner{grid-template-columns:1fr 520px;gap:96px}}
+@media(max-width:640px){.hero-inner{padding:72px 20px 84px;gap:52px}}
+
+.hero-pretag{font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.hero-pretag::before{content:'';display:block;width:20px;height:1.5px;background:var(--red);border-radius:1px}
+.hero h1{font-family:var(--font-d);font-size:clamp(44px,5.8vw,80px);line-height:1.04;letter-spacing:-0.03em;color:var(--text);margin-bottom:28px}
+.hero h1 em{font-style:italic;color:var(--red)}
+.hero-lead{font-size:18px;color:var(--text-2);line-height:1.82;font-weight:300;max-width:520px;margin-bottom:40px}
+@media(max-width:640px){.hero-lead{font-size:16px}}
+
+/* Quick stats row */
+.hero-stats{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.hero-stat-item{display:flex;align-items:center;gap:9px;padding-right:28px;margin-right:28px;border-right:1px solid var(--border)}
+.hero-stat-item:last-child{border-right:none;padding-right:0;margin-right:0}
+.hero-stat-num{font-family:var(--font-d);font-size:26px;line-height:1;color:var(--text);letter-spacing:-0.02em}
+.hero-stat-num.live{color:var(--red)}
+.hero-stat-label{font-size:11px;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;line-height:1.35}
+
+/* Hero image col */
+.hero-img-col{display:flex;align-items:center;justify-content:center}
+.hero-img-wrap{width:100%;border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--sh-xl);transform:rotate(1.5deg);transition:transform 0.5s var(--ease)}
+.hero-img-wrap:hover{transform:rotate(0deg) scale(1.01)}
+.hero-img-wrap img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+@media(max-width:860px){.hero-img-wrap{max-width:420px;margin:0 auto}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MISSION — off-white bg, text left / image right
+═══════════════════════════════════════════════════════════════════ */
+.mission{background:var(--off-white);border-top:1px solid var(--border)}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:1024px){.mission-grid{grid-template-columns:1fr;gap:52px}}
+
+.mission-content .section-tag{margin-bottom:16px}
+.mission-h2{font-family:var(--font-d);font-size:clamp(30px,3.5vw,46px);line-height:1.1;letter-spacing:-0.022em;color:var(--text);margin-bottom:24px}
+.mission-h2 em{font-style:italic;color:var(--red)}
+.mission-content p{font-size:15.5px;color:var(--text-2);line-height:1.85;font-weight:300;margin-bottom:18px}
+.mission-content p:last-of-type{margin-bottom:0}
+
+/* Blockquote with large serif watermark */
+.blockquote-red{position:relative;border-left:3px solid var(--red);padding:24px 28px 24px 32px;background:var(--red-light);border-radius:0 var(--r-lg) var(--r-lg) 0;margin-top:36px;overflow:hidden}
+.blockquote-red::before{content:'\201C';position:absolute;right:16px;bottom:-20px;font-family:var(--font-d);font-size:160px;line-height:1;color:rgba(192,57,43,0.08);pointer-events:none;user-select:none;letter-spacing:-0.05em}
+.blockquote-red p{font-family:var(--font-d);font-size:19px;font-style:italic;color:var(--text);line-height:1.55;margin-bottom:0;position:relative;z-index:1}
+
+/* Mission image */
+.mission-img-wrap{position:relative;height:540px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--sh-lg)}
+.mission-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s var(--ease)}
+.mission-img-wrap:hover img{transform:scale(1.03)}
+@media(max-width:1024px){.mission-img-wrap{height:380px}}
+@media(max-width:640px){.mission-img-wrap{height:280px}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VALUES — bg, 4 col cards with ghost numbers
+═══════════════════════════════════════════════════════════════════ */
+.values{background:var(--bg);border-top:1px solid var(--border)}
+.values-hdr{text-align:center;margin-bottom:64px}
+.values-hdr .section-tag{justify-content:center;margin-bottom:16px}
+.values-hdr .section-tag::before{display:none}
+.values-hdr .section-title{margin-bottom:8px}
+.values-hdr .section-desc{margin:0 auto;text-align:center}
+
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1024px){.values-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.values-grid{grid-template-columns:1fr}}
+
+.value-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:38px 30px 42px;box-shadow:var(--sh-sm);transition:transform 0.28s var(--ease),box-shadow 0.28s var(--ease);position:relative;overflow:hidden}
+.value-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+.value-num-tag{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:block}
+.value-card h3{font-family:var(--font-d);font-size:22px;color:var(--text);margin-bottom:12px;line-height:1.2}
+.value-card p{font-size:14px;color:var(--text-2);line-height:1.82;font-weight:300;position:relative;z-index:1}
+/* Ghost large number */
+.value-ghost{position:absolute;right:14px;bottom:-10px;font-family:var(--font-d);font-size:100px;line-height:1;color:rgba(26,24,20,0.04);pointer-events:none;user-select:none;letter-spacing:-0.05em;transition:color 0.3s}
+.value-card:hover .value-ghost{color:rgba(192,57,43,0.06)}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TIMELINE — white bg, left col text / right vertical list
+═══════════════════════════════════════════════════════════════════ */
+.timeline{background:var(--white);border-top:1px solid var(--border)}
+.timeline-grid{display:grid;grid-template-columns:1fr 2fr;gap:96px;align-items:start}
+@media(max-width:1024px){.timeline-grid{grid-template-columns:1fr;gap:52px}}
+
+.timeline-lhs .section-tag{margin-bottom:16px}
+.timeline-lhs h2{font-family:var(--font-d);font-size:clamp(28px,3.2vw,44px);line-height:1.1;letter-spacing:-0.022em;color:var(--text);margin-bottom:16px}
+.timeline-lhs h2 em{font-style:italic;color:var(--red)}
+.timeline-lhs p{font-size:15px;color:var(--text-2);line-height:1.85;font-weight:300}
+
+/* Vertical timeline */
+.timeline-list{position:relative;padding-left:36px}
+.timeline-list::before{content:'';position:absolute;left:9px;top:12px;bottom:12px;width:2px;background:var(--border);border-radius:2px}
+
+.tl-item{position:relative;padding-bottom:56px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-31px;top:6px;width:14px;height:14px;background:var(--red);border-radius:50%;border:3px solid var(--white);box-shadow:0 0 0 2px var(--red)}
+/* Pulsing dot for latest */
+.tl-dot.pulse{animation:dotpulse 2s ease infinite}
+@keyframes dotpulse{0%,100%{box-shadow:0 0 0 2px var(--red)}50%{box-shadow:0 0 0 6px rgba(192,57,43,0)}}
+
+.tl-year{font-size:10.5px;font-weight:700;letter-spacing:0.12em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.tl-item h3{font-family:var(--font-d);font-size:22px;color:var(--text);margin-bottom:8px;line-height:1.2}
+.tl-item p{font-size:14px;color:var(--text-2);line-height:1.82;font-weight:300}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEAM — off-white bg, 3 cards with gradient strip on hover
+═══════════════════════════════════════════════════════════════════ */
+.team{background:var(--off-white);border-top:1px solid var(--border)}
+.team-hdr{text-align:center;margin-bottom:64px}
+.team-hdr .section-tag{justify-content:center;margin-bottom:16px}
+.team-hdr .section-tag::before{display:none}
+.team-hdr .section-title{margin-bottom:0}
+
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
+
+.team-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-2xl);padding:44px 34px;box-shadow:var(--sh-sm);transition:transform 0.28s var(--ease),box-shadow 0.28s var(--ease);position:relative;overflow:hidden}
+.team-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+/* Gradient strip — hidden by default, revealed on hover */
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));opacity:0;transition:opacity 0.3s var(--ease)}
+.team-card:hover::before{opacity:1}
+
+.team-avatar{width:68px;height:68px;border-radius:50%;background:var(--red-light);border:2px solid var(--red-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:24px;color:var(--red);margin-bottom:24px;flex-shrink:0}
+.team-name{font-family:var(--font-d);font-size:22px;color:var(--text);margin-bottom:5px;line-height:1.2}
+.team-role{font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+.team-bio{font-size:14px;color:var(--text-2);line-height:1.82;font-weight:300}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CTA BAND — dark bg, noise, vertical lines top & bottom
+═══════════════════════════════════════════════════════════════════ */
+.cta-band{background:var(--text);position:relative;overflow:hidden}
+/* Top vertical line */
+.cta-band::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:88px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.12));pointer-events:none;z-index:1}
+/* Bottom vertical line */
+.cta-band::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:1px;height:88px;background:linear-gradient(to top,transparent,rgba(255,255,255,0.12));pointer-events:none;z-index:1}
+.cta-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+.cta-inner{max-width:840px;margin:0 auto;padding:108px 32px;text-align:center;position:relative;z-index:2}
+.cta-band h2{font-family:var(--font-d);font-size:clamp(34px,4.8vw,64px);line-height:1.06;letter-spacing:-0.025em;color:#fff;font-style:italic;margin-bottom:20px}
+.cta-band p{font-size:17px;color:rgba(255,255,255,0.52);max-width:480px;margin:0 auto 44px;line-height:1.8;font-weight:300}
+.cta-buttons{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+@media(max-width:640px){.cta-inner{padding:80px 20px}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER — dark bg, 3-col
+═══════════════════════════════════════════════════════════════════ */
+footer{background:var(--text)}
+.ft-main{max-width:1280px;margin:0 auto;padding:80px 32px 52px;display:grid;gap:52px}
+@media(min-width:800px){.ft-main{grid-template-columns:2.2fr 1fr 1fr}}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ft-logo-icon{width:34px;height:34px;background:rgba(255,255,255,0.1);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.ft-logo-icon svg{width:16px;height:16px;color:rgba(255,255,255,0.7)}
+.ft-name{font-family:var(--font-d);font-size:20px;color:#fff}
+.ft-sub{font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:16px;letter-spacing:0.03em}
+.ft-desc{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.9;max-width:290px;font-weight:300}
+.ft-col-t{font-size:10px;font-weight:700;color:rgba(255,255,255,0.25);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-col ul a{font-size:13.5px;color:rgba(255,255,255,0.45);transition:color 0.15s;font-weight:300}
+.ft-col ul a:hover{color:#fff}
+.ft-bottom{max-width:1280px;margin:0 auto;padding:24px 32px;border-top:1px solid rgba(255,255,255,0.07);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ft-copy{font-size:11.5px;color:rgba(255,255,255,0.22);font-weight:300}
+.ft-by{font-size:11px;color:rgba(255,255,255,0.18);letter-spacing:0.05em}
+@media(max-width:640px){.ft-main{padding:56px 20px 40px}.ft-bottom{padding:20px}.ft-bottom{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+
+<!-- ── ANNOUNCE BAR ──────────────────────────────────────────────── -->
+<div class="announce">
+  <div class="announce-inner">
+    <span class="announce-pill"><span class="announce-pill-dot"></span>Ankara'da Tek</span>
+    <strong>pilavustuask.com güvencesiyle</strong>
+    <span class="announce-sep">·</span> SSL Korumalı
+    <span class="announce-sep">·</span> KVKK Uyumlu
+    <span class="announce-sep">·</span> 13 Üniversite
+  </div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav class="nav at-top" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      </span>
+      <span>
+        <span class="nav-logo-name">Askıda Pilav</span>
+        <span class="nav-logo-sub">Ankara'nın öğrenci yemek platformu</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="about.html" class="active">Hakkımızda</a>
+      <a href="request.html">Talep Et</a>
+      <a href="student-register.html">Öğrenci Kaydı</a>
+      <a href="student-qr.html">QR Kodum</a>
+    </div>
+    <a href="donate.html" class="nav-cta btn">
+      Bağış Yap
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <button class="hamburger" id="hbg" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ── MOBILE DRAWER ─────────────────────────────────────────────── -->
+<div class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></span>
+      <span style="font-family:var(--font-d);font-size:18px;color:var(--text)">Askıda Pilav</span>
+    </a>
+    <button class="drawer-close" id="drClose">&#x2715;</button>
+  </div>
+  <div class="drawer-links">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="about.html">Hakkımızda</a>
+    <a href="student-register.html">Öğrenci Kaydı</a>
+    <a href="student-qr.html">QR Kodum</a>
+    <a href="request.html">Talep Et</a>
+  </div>
+  <div class="drawer-foot">
+    <a href="donate.html" class="btn btn-red" style="width:100%;justify-content:center;font-size:16px;padding:16px">
+      Bağış Yap
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   HERO — editorial 2-col
+════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <!-- Left col -->
+    <div>
+      <div class="hero-pretag r">Hakkımızda</div>
+      <h1 class="r d1">Bir tabak yemek,<br><em>bir umut</em></h1>
+      <p class="hero-lead r d2">
+        Ankara'daki üniversite öğrencileri için kurulmuş bu platform, 2019'dan bu yana bağışçıların
+        cömertliğini ihtiyaç sahiplerine şeffaf ve onurlu bir şekilde aktarıyor.
+        Her bağış belgelenir, her yemek QR doğrulamasıyla teslim edilir.
+      </p>
+      <!-- Quick stats row -->
+      <div class="hero-stats r d3">
+        <div class="hero-stat-item">
+          <div>
+            <div class="hero-stat-num">2019</div>
+            <div class="hero-stat-label">Kuruluş Yılı</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div>
+            <div class="hero-stat-num">13</div>
+            <div class="hero-stat-label">Üniversite</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div>
+            <div class="hero-stat-num live" id="heroMeals">—</div>
+            <div class="hero-stat-label">Yemek Bağışı</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div>
+            <div class="hero-stat-num live" id="heroStudents">—</div>
+            <div class="hero-stat-label">Öğrenci</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right col — image -->
+    <div class="hero-img-col r d2">
+      <div class="hero-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="Sıcak yemek servisi"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   MISSION — off-white
+════════════════════════════════════════════════════════════════ -->
+<section class="section mission">
+  <div class="w">
+    <div class="mission-grid">
+      <!-- Left: text -->
+      <div class="mission-content r">
+        <div class="section-tag">Misyonumuz</div>
+        <h2 class="mission-h2">Neden <em>varız?</em></h2>
+        <p>
+          Türkiye'deki yüz binlerce üniversite öğrencisi, eğitim masraflarını karşılarken temel
+          beslenme ihtiyaçlarından taviz vermek zorunda kalıyor. Askıda Pilav, bu sessiz krizle
+          yüzleşmek ve toplumun dayanışma gücünü somut, ölçülebilir bir sisteme dönüştürmek
+          için kuruldu.
+        </p>
+        <p>
+          Bağışçılarımızdan gelen her katkı, doğrudan ihtiyaç sahibi öğrencilere ulaşır.
+          Aracı komisyonlar, karmaşık bürokratik engeller yoktur. Şeffaflık ilkemiz gereği
+          her öğrencinin durumu, her bağışın kullanımı kayıt altındadır ve kamuoyuyla paylaşılır.
+        </p>
+        <blockquote class="blockquote-red">
+          <p>"Bir tabak yemek, bazen bir geleceği değiştirir."</p>
+        </blockquote>
+      </div>
+      <!-- Right: image -->
+      <div class="mission-img-wrap r d2">
+        <img
+          src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Yemek hazırlığı"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   VALUES — bg, 4-col cards
+════════════════════════════════════════════════════════════════ -->
+<section class="section values">
+  <div class="w">
+    <div class="values-hdr r">
+      <div class="section-tag">Değerlerimiz</div>
+      <h2 class="section-title">Bizi <em>biz</em> yapan</h2>
+      <p class="section-desc">Dört temel ilke, her kararımızın ve her eylemin arkasındaki güç.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card r d1">
+        <span class="value-num-tag">01</span>
+        <h3>Şeffaflık</h3>
+        <p>Bağış nereye gitti? Cevabı her zaman veriyoruz. Kamuya açık raporlar, gerçek zamanlı veriler.</p>
+        <div class="value-ghost" aria-hidden="true">01</div>
+      </div>
+      <div class="value-card r d2">
+        <span class="value-num-tag">02</span>
+        <h3>Onur</h3>
+        <p>Destek almak için kimlik gizliliği şart. Yardım alan her öğrenciye saygı ve mahremiyet.</p>
+        <div class="value-ghost" aria-hidden="true">02</div>
+      </div>
+      <div class="value-card r d3">
+        <span class="value-num-tag">03</span>
+        <h3>Gerçeklik</h3>
+        <p>QR sistemi ile her yemek belgelenir. Her teslimatta dijital doğrulama ve fotoğraf kaydı.</p>
+        <div class="value-ghost" aria-hidden="true">03</div>
+      </div>
+      <div class="value-card r d4">
+        <span class="value-num-tag">04</span>
+        <h3>Süreklilik</h3>
+        <p>2019'dan bu yana hiç durmadık. Krizlerde, bayramlarda ve her günün zorluğunda yanındayız.</p>
+        <div class="value-ghost" aria-hidden="true">04</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   TIMELINE — white
+════════════════════════════════════════════════════════════════ -->
+<section class="section timeline">
+  <div class="w">
+    <div class="timeline-grid">
+      <!-- Left -->
+      <div class="timeline-lhs r">
+        <div class="section-tag">Tarihçe</div>
+        <h2>Yolculuğumuz <em>devam ediyor</em></h2>
+        <p>
+          Küçük bir fikirden Ankara'nın en güvenilir öğrenci dayanışma ağına. Her yıl daha fazla
+          öğrenci, daha fazla bağışçı ve daha güçlü bir toplulukla büyümeye devam ediyoruz.
+        </p>
+      </div>
+      <!-- Right: timeline -->
+      <div class="timeline-list">
+        <div class="tl-item r d1">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2019</div>
+          <h3>Kuruluş</h3>
+          <p>İlk 3 öğrenciye yemek. Hacettepe Üniversitesi kampüsünde 5 gönüllü ile başladık. İlk ayda 60 tabak dağıtıldı.</p>
+        </div>
+        <div class="tl-item r d2">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2020</div>
+          <h3>Büyüme</h3>
+          <p>5 üniversiteye yayıldık. Pandemi döneminde ihtiyaç arttı, biz de büyüdük. Online bağış kanalı devreye girdi.</p>
+        </div>
+        <div class="tl-item r d3">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2021</div>
+          <h3>Dijital Dönüşüm</h3>
+          <p>QR sistemi kuruldu. Başvuru ve bağış süreçleri tamamen dijitalleşti. Her teslim artık anlık doğrulanıyor.</p>
+        </div>
+        <div class="tl-item r d4">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2022</div>
+          <h3>Genişleme</h3>
+          <p>13 üniversiteye ulaştık. Ankara'daki neredeyse her büyük kampüste öğrencilere doğrudan erişim sağlandı.</p>
+        </div>
+        <div class="tl-item r" style="transition-delay:0.4s">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023</div>
+          <h3>Şeffaflık Raporu</h3>
+          <p>Kamuya açık raporlar başladı. Her bağışın nereye gittiğini herkes görebilir hale geldi.</p>
+        </div>
+        <div class="tl-item r" style="transition-delay:0.48s">
+          <div class="tl-dot pulse"></div>
+          <div class="tl-year">2024 — Bugün</div>
+          <h3>Ankara'nın Tek Platformu</h3>
+          <p>pilavustuask.com açıldı. Tüm Türkiye'den online bağış ve başvuru mümkün. Ankara'da eşsiz, güvenilir, büyüyen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   TEAM — off-white
+════════════════════════════════════════════════════════════════ -->
+<section class="section team">
+  <div class="w">
+    <div class="team-hdr r">
+      <div class="section-tag">Ekibimiz</div>
+      <h2 class="section-title">Arkamızdaki <em>eller</em></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card r d1">
+        <div class="team-avatar">AY</div>
+        <div class="team-name">Ahmet Y.</div>
+        <div class="team-role">Kurucu</div>
+        <p class="team-bio">
+          Hacettepe mezunu Ahmet, öğrenci yoksulluğunu bizzat yaşayarak bu hareketi başlattı.
+          Sistemin her ayrıntısını bizzat takip eder; şeffaflık ve onur onun iki kırmızı çizgisi.
+        </p>
+      </div>
+      <div class="team-card r d2">
+        <div class="team-avatar">ED</div>
+        <div class="team-name">Elif D.</div>
+        <div class="team-role">Platform Koordinatörü</div>
+        <p class="team-bio">
+          Bağışçılar ile öğrenciler arasındaki köprüyü Elif kuruyor. Üniversite iş birlikleri,
+          kampanya yönetimi ve topluluk büyütme sorumluluğu ona ait.
+        </p>
+      </div>
+      <div class="team-card r d3">
+        <div class="team-avatar">BA</div>
+        <div class="team-name">Burak A.</div>
+        <div class="team-role">Teknoloji</div>
+        <p class="team-bio">
+          Yazılım mühendisi Burak, gönüllülük temelinde platformun tüm teknik altyapısını
+          kurup geliştiriyor. QR sistemi, gerçek zamanlı doğrulama onun imzası.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   CTA BAND — dark
+════════════════════════════════════════════════════════════════ -->
+<section class="cta-band">
+  <div class="cta-noise"></div>
+  <div class="cta-inner">
+    <h2 class="r"><em>Bir bağışla tarihe geç</em></h2>
+    <p class="r d1">
+      Bugün vereceğin tek tabak yemek, bir öğrencinin hayatında iz bırakır.
+    </p>
+    <div class="cta-buttons r d2">
+      <a href="donate.html" class="btn btn-white">
+        Bağış Yap
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="request.html" class="btn btn-outline-white">Talep Et</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+   FOOTER — dark
+════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="ft-main">
+    <!-- Col 1: Logo + desc -->
+    <div>
+      <div class="ft-logo">
+        <div class="ft-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+        <span class="ft-name">Askıda Pilav</span>
+      </div>
+      <div class="ft-sub">pilavustuask.com güvencesiyle</div>
+      <p class="ft-desc">Ankara'daki üniversite öğrencilerine sıcak yemek ulaştıran şeffaf bağış platformu. 2019'dan bu yana kesintisiz.</p>
+    </div>
+    <!-- Col 2: Platform -->
+    <div class="ft-col">
+      <div class="ft-col-t">Platform</div>
+      <ul>
+        <li><a href="donate.html">Bağış Yap</a></li>
+        <li><a href="student-register.html">Öğrenci Kaydı</a></li>
+        <li><a href="student-qr.html">QR Kodum</a></li>
+        <li><a href="request.html">Talep Et</a></li>
+      </ul>
+    </div>
+    <!-- Col 3: Kurumsal -->
+    <div class="ft-col">
+      <div class="ft-col-t">Kurumsal</div>
+      <ul>
+        <li><a href="about.html">Hakkımızda</a></li>
+        <li><a href="#">KVKK Politikası</a></li>
+        <li><a href="#">Gizlilik</a></li>
+        <li><a href="#">İletişim</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2024 pilavustuask.com.tr — Tüm hakları saklıdır.</span>
+    <span class="ft-by">Ankara · Türkiye</span>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────────────── -->
+<script>
+  /* ── Nav scroll state ─────────────────────────────── */
+  const nav = document.getElementById('nav');
+  function updateNav() {
+    const y = window.scrollY;
+    nav.classList.toggle('at-top', y < 8);
+    nav.classList.toggle('scrolled', y >= 8);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  /* ── Hamburger / Drawer ───────────────────────────── */
+  const drawer = document.getElementById('drawer');
+  function openDrawer() {
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('hbg').addEventListener('click', openDrawer);
+  document.getElementById('drClose').addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer-links a, .drawer-foot a').forEach(a =>
+    a.addEventListener('click', closeDrawer)
+  );
+
+  /* ── Reveal on scroll (IntersectionObserver) ──────── */
+  function initReveal() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('v');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+
+    document.querySelectorAll('.r').forEach(el => {
+      // Elements already in viewport on load
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 40 && rect.bottom > -40) {
+        el.classList.add('v');
+      } else {
+        io.observe(el);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
+
+  /* ── Supabase live stats ──────────────────────────── */
+  (async function loadStats() {
+    const SUPABASE_URL = 'https://svvjgqdyzjschuoxvsig.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dmpncWR5empzY2h1b3h2c2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzYxODQsImV4cCI6MjA5MzQxMjE4NH0.FAlcRXcWKNLukl_h-FehkzEy-QQfeiwW8vVA3Ddkdiw';
+
+    const headers = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    };
+
+    function fmt(n) {
+      if (!n && n !== 0) return '—';
+      if (n >= 1000) return (n / 1000).toFixed(1).replace('.0','') + 'K+';
+      return n.toLocaleString('tr-TR');
+    }
+
+    try {
+      // Students count
+      const sRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/students?select=count`,
+        { headers: { ...headers, 'Prefer': 'count=exact', 'Range-Unit': 'items', 'Range': '0-0' } }
+      );
+      const contentRange = sRes.headers.get('content-range');
+      const studentsCount = contentRange ? parseInt(contentRange.split('/')[1]) : null;
+
+      // Donations sum of meal_count
+      const dRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/donations?select=meal_count`,
+        { headers }
+      );
+      const donations = await dRes.json();
+      const mealsTotal = Array.isArray(donations)
+        ? donations.reduce((s, d) => s + (parseInt(d.meal_count) || 0), 0)
+        : null;
+
+      const mealsEl = document.getElementById('heroMeals');
+      const studentsEl = document.getElementById('heroStudents');
+      if (mealsEl) mealsEl.textContent = fmt(mealsTotal);
+      if (studentsEl) studentsEl.textContent = fmt(studentsCount);
+    } catch (e) {
+      // Silently fail — fallback values remain as "—"
+    }
+  })();
+</script>
+</body>
+</html>
